@@ -5,7 +5,7 @@ cd booking/
 mvn spring-boot:run
 ```
 
-- UI: [http://localhost:8080(http://localhost:8080)
+- UI: [http://localhost:8080](http://localhost:8080)
 - Swagger specification of REST/HTTP endpoints: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ## RSocket
