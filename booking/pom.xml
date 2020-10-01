@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>jar</packaging>
+    <artifactId>axoniq-hotel-booking</artifactId>
+    <name>axoniq-hotel-booking</name>
+    <description>Demo project for Axon - Booking system</description>
+
+    <parent>
+        <groupId>io.axoniq.demo</groupId>
+        <artifactId>axoniq-hotel</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <start-class>io.axoniq.demo.hotel.booking.HotelBookingApplication</start-class>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+                <configuration>
+                    <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+                    <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
+                    <workingDirectory>frontend</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <!-- optional: default phase is "generate-resources" -->
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>install frontend dependencies</id>
+                        <goals>
+                            <goal>npx</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>pnpm install</arguments>
+                        </configuration>
+                        <!-- optional: default phase is "generate-resources" -->
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>Build Frontend</id>
+                        <goals>
+                            <goal>npx</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>pnpm run build</arguments>
+                        </configuration>
+                        <!-- optional: default phase is "generate-resources" -->
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-frontend-build</id>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${frontend-build-directory}</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+                            <container>
+                                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                            </container>
+                            <from>
+                                <image>gcr.io/distroless/java:11</image>
+                            </from>
+                            <to>
+                                <image>
+                                    ${gcloud.registry}/${gcloud.project.name}/axoniq-hotel-booking:${project.parent.version}
+                                </image>
+                                <credHelper>gcr</credHelper>
+                            </to>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+</project>

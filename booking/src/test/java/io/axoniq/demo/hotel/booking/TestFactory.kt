@@ -1,0 +1,50 @@
+package io.axoniq.demo.hotel.booking
+
+import io.axoniq.demo.hotel.booking.command.api.RoomBooking
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.util.*
+
+const val USER_NAME = "user@gmail.com"
+const val PASS_WORD = "1234"
+
+const val ROOM_NUMBER = 1
+const val ROOM_DESCRIPTION = "Double Room with ocean view"
+
+val startDate: LocalDate = LocalDate.parse("2020-07-01")
+val endDate: LocalDate = LocalDate.parse("2020-07-31")
+
+val overlappingStartDate: LocalDate = LocalDate.parse("2020-07-15")
+val overlappingEndDate: LocalDate = LocalDate.parse("2020-07-17")
+
+val connectedPriorBookingPeriodStartDate: LocalDate = LocalDate.parse("2020-07-01")
+val connectedPriorBookingPeriodEndDate: LocalDate = LocalDate.parse("2020-06-15")
+
+val connectedFutureBookingPeriodStartDate: LocalDate = LocalDate.parse("2020-07-31")
+val connectedFutureBookingPeriodEndDate: LocalDate = LocalDate.parse("2020-08-15")
+
+val bookingPeriod = RoomBooking(
+    startDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    endDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    UUID.fromString("b1c1779d-9169-49c2-8ef4-5233ae8c5471")
+)
+val bookingPeriod2 = RoomBooking(
+    startDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    endDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    UUID.fromString("b1c1779d-9169-49c2-8ef4-5233ae8c5472")
+)
+val overlappingBookingPeriod = RoomBooking(
+    overlappingStartDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    overlappingEndDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    UUID.fromString("b1c1779d-9169-49c2-8ef4-5233ae8c5471")
+)
+val connectedToPriorBookingPeriod = RoomBooking(
+    connectedPriorBookingPeriodStartDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    connectedPriorBookingPeriodEndDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    UUID.fromString("b1c1779d-9169-49c2-8ef4-5233ae8c5471")
+)
+val connectedToFutureBookingPeriod = RoomBooking(
+    connectedFutureBookingPeriodStartDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    connectedFutureBookingPeriodEndDate.atStartOfDay().toInstant(ZoneOffset.UTC),
+    UUID.fromString("b1c1779d-9169-49c2-8ef4-5233ae8c5471")
+)

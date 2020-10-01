@@ -1,0 +1,20 @@
+apiVersion: skaffold/v1
+kind: Config
+build:
+  tagPolicy:
+    gitCommit: {}
+  artifacts:
+    - image: axoniq-hotel-booking
+      jib:
+        project: booking
+    - image: axoniq-hotel-inventory
+      jib:
+        project: inventory
+deploy:
+  kustomize:
+    path: "./.k8s/overlays/standard"
+profiles:
+  - name: enterprise
+    deploy:
+      kustomize:
+        path: "./.k8s/overlays/enterprise/applications"

@@ -1,0 +1,20 @@
+.app__user-stripe {
+  position: fixed;
+  top: 0;
+  text-align: center;
+  width: 100vw;
+  color: white;
+}
+.app__user-stripe--manager {
+  background-color: red;
+}
+.app__user-stripe--guest {
+  background-color: green;
+}
+.app__container {
+  margin-top: 20px;
+}
+
+body {
+  margin: 0;
+}
