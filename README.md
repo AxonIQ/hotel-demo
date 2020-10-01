@@ -50,7 +50,7 @@ mvn spring-boot:run
 ### Running all on Kubernetes
 
 Deployment on Kubernetes (CaaS) is documented in [.k8s/Readme.md](./.k8s/README.md).
-It demonstrates the usage of Axon Server EE in a multi-context setup with access control enabled. If you want to actually run Axon Server EE you need a valid license file.
+It demonstrates the usage of Axon Server Standard Edition and Axon Server Enterprise Edition in a multi-context setup with access control enabled. If you want to actually run Axon Server Enterprise Edition you need a valid license file.
 
 ---
 
