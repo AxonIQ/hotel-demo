@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: axonserver
+spec:
+  serviceName: "axonserver"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: axonserver
+  template:
+    metadata:
+      labels:
+        app: axonserver
+    spec:
+      containers:
+        - name: axonserver-enterprise
+          image: eu.gcr.io/axoniq-devops/axonserver-enterprise:4.4.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8124
+              protocol: TCP
+              name: grpc
+            - containerPort: 8024
+              protocol: TCP
+              name: gui
+          volumeMounts:
+            - name: eventstore
+              mountPath: /eventdata
+            - name: data
+              mountPath: /data
+              # Because Spring Boot apps browse the config folder for configuration files by default, no further configuration is required.
+            - name: configuration
+              mountPath: /config
+            - name: secrets
+              mountPath: /secrets
+          resources:
+            requests:
+              cpu: 300m
+          readinessProbe:
+            httpGet:
+              path: /actuator/info
+              port: 8024
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 1
+          livenessProbe:
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/info
+              port: 8024
+          env:
+            - name: AXONIQ_LICENSE
+              value: "/secrets/axoniq.license"
+            - name: AXONIQ_AXONSERVER_ACCESSCONTROL_SYSTEMTOKENFILE
+              value: "/secrets/systemtoken"
+      volumes:
+        - name: secrets
+          secret:
+            secretName: axonserver-secret
+            items:
+              - key: axoniq.license
+                path: axoniq.license
+              - key: systemtoken
+                path: systemtoken
+        - name: configuration
+          configMap:
+            name: axonserver-config
+            items:
+              - key: axonserver.properties
+                path: axonserver.properties
+  volumeClaimTemplates:
+    - metadata:
+        name: eventstore
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

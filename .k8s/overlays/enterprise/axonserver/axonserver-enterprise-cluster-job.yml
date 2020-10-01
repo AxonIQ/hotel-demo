@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: axonserver-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: axonserver-job
+          image: alpine:latest
+          command: ["/bin/sh"]
+          args:
+            - -c
+            - >
+              apk update && apk add --no-cache curl bash && bash -c
+              "
+              until \$(curl --output /dev/null --silent --fail -X GET axonserver-0.axonserver.default.svc.cluster.local:8024/v1/public/context -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\"); do
+                  echo \"Waiting for Axon Server 0 to start...\"
+                  sleep 10
+              done;
+
+              until \$(curl --output /dev/null --silent --fail -X GET axonserver-1.axonserver.default.svc.cluster.local:8024/v1/public/context -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\"); do
+                  echo \"Waiting for Axon Server 1 to start...\"
+                  sleep 10
+              done;
+
+              until \$(curl --output /dev/null --silent --fail -X GET axonserver-2.axonserver.default.svc.cluster.local:8024/v1/public/context -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\"); do
+                  echo \"Waiting for Axon Server 2 to start...\"
+                  sleep 10
+              done;
+
+              echo \"Registering Admin user ...\";
+
+              curl -i -v -X POST \"axonserver-0.axonserver.default.svc.cluster.local:8024/v1/users\" -H \"accept: */*\" -H \"Content-Type: application/json\" -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\" -d '{ \"password\": \"admin\", \"roles\": [ \"ADMIN\", \"READ_EVENTS\" ], \"userName\": \"admin\"}';
+
+              echo \"Adding Booking context ...\";
+
+              curl -i -v -X POST \"axonserver-0.axonserver.default.svc.cluster.local:8024/v1/context\" -H \"accept: */*\" -H \"Content-Type: application/json\" -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\" -d '{ \"context\": \"booking\", \"roles\": [{ \"node\": \"axonserver-1\", \"role\": \"PRIMARY\"}, { \"node\": \"axonserver-2\", \"role\": \"PRIMARY\"}, { \"node\": \"axonserver-0\", \"role\": \"PRIMARY\"}]}';
+
+              echo \"Adding Inventory context ...\";
+
+              curl -i -v -X POST \"axonserver-0.axonserver.default.svc.cluster.local:8024/v1/context\" -H \"accept: */*\" -H \"Content-Type: application/json\" -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\" -d '{ \"context\": \"inventory\", \"roles\": [{ \"node\": \"axonserver-1\", \"role\": \"PRIMARY\"}, { \"node\": \"axonserver-2\", \"role\": \"PRIMARY\"}, { \"node\": \"axonserver-0\", \"role\": \"PRIMARY\"}]}';
+
+              echo \"Creating Booking application binding ...\";
+
+              curl -i -v -X POST \"axonserver-0.axonserver.default.svc.cluster.local:8024/v1/applications\" -H \"accept: */*\" -H \"Content-Type: application/json\" -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\" -d '{\"roles\": [{\"context\": \"booking\", \"roles\": [\"USE_CONTEXT\"]},{\"context\": \"inventory\", \"roles\": [\"DISPATCH_COMMANDS\"]},{\"context\": \"inventory\", \"roles\": [\"READ_EVENTS\"]}], \"workingRoles\": null, \"name\": \"booking-application\", \"token\": \"our-secret-booking-token\"}';
+
+              echo \"Creating Inventory application binding ...\";
+
+              curl -i -v -X POST \"axonserver-0.axonserver.default.svc.cluster.local:8024/v1/applications\" -H \"accept: */*\" -H \"Content-Type: application/json\" -H \"AxonIQ-Access-Token: 1d9ded05-cdf8-49a6-b6f6-503f9ed508d1\" -d '{\"roles\": [{\"context\": \"inventory\", \"roles\": [\"USE_CONTEXT\"]}], \"workingRoles\": null, \"name\": \"inventory-application\", \"token\": \"our-secret-inventory-token\"}';
+
+              exit 0;
+              "
+      restartPolicy: Never
+  backoffLimit: 0
+  activeDeadlineSeconds: 240

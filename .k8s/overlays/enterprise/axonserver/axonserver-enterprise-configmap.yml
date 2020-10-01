@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: axonserver-config
+data:
+  axonserver.properties: |-
+    axoniq.axonserver.autocluster.first=axonserver-0.axonserver.default.svc.cluster.local
+    axoniq.axonserver.autocluster.contexts=_admin,default
+    axoniq.axonserver.internal-domain=axonserver.default.svc.cluster.local
+    axoniq.axonserver.domain=axonserver.default.svc.cluster.local
+    axoniq.axonserver.accesscontrol.enabled=true
+    axoniq.axonserver.accesscontrol.internal-token=internal-token-for-axonserver
+

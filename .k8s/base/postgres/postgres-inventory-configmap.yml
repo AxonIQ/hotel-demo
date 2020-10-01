@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config-demo-inventory
+  labels:
+    app: postgres-inventory
+data:
+  POSTGRES_DB: axoniq-hotel-inventory
+  POSTGRES_USER: demouser
+  POSTGRES_PASSWORD: thepassword

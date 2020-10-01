@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  AXON_AXONSERVER_COMPONENT-NAME: "axoniq-hotel-booking-demo-k18"
+  AXON_AXONSERVER_SERVERS: "axonserver-0.axonserver.default.svc.cluster.local:8124,axonserver-1.axonserver.default.svc.cluster.local:8124,axonserver-2.axonserver.default.svc.cluster.local:8124"
+  AXON_AXONSERVER_CONTEXT: booking
+  AXON_AXONSERVER_TOKEN: our-secret-booking-token
+  SPRING_PROFILES_ACTIVE: enterprise
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-booking-0.postgres-booking.default.svc.cluster.local:5432/axoniq-hotel-booking
+  SPRING_DATASOURCE_USERNAME: demouser
+  SPRING_DATASOURCE_PASSWORD: thepassword
+  SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+  SPRING_JPA_PROPERTIES_HIBERNATE_JDBC_LOB_NON-CONTEXTUAL-CREATION: "true"
+  OPENTRACING_JAEGER_UDP-SENDER_HOST: "jaeger.default.svc.cluster.local"
+  OPENTRACING_JAEGER_UDP-SENDER_PORT: "6831"
+  OPENTRACING_JAEGER_ENABLED: "true"
+kind: ConfigMap
+metadata:
+  name: axoniq-hotel-booking

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-booking
+  labels:
+    app: postgres-booking
+spec:
+  ports:
+    - port: 5432
+      name: postgres-booking
+  clusterIP: None
+  selector:
+    app: postgres-booking

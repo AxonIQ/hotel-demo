@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base # relative path to the base folder
+
+resources:
+  - axonserver/axonserver-statefulset.yml
+  - axonserver/axonserver-services.yml

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config-demo-booking
+  labels:
+    app: postgres-booking
+data:
+  POSTGRES_DB: axoniq-hotel-booking
+  POSTGRES_USER: demouser
+  POSTGRES_PASSWORD: thepassword

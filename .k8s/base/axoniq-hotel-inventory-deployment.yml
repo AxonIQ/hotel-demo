@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: axoniq-hotel-inventory
+  name: axoniq-hotel-inventory
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: axoniq-hotel-inventory
+  template:
+    metadata:
+      labels:
+        app: axoniq-hotel-inventory
+    spec:
+      containers:
+        - image: axoniq-hotel-inventory:latest
+          name: axoniq-hotel-inventory
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: axoniq-hotel-inventory
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8081
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8081
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            periodSeconds: 15

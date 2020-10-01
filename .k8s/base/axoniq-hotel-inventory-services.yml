@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: axoniq-hotel-inventory
+  name: axoniq-hotel-inventory
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8081"
+spec:
+  ports:
+    - name: 8081-8081
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    app: axoniq-hotel-inventory
+  type: LoadBalancer
