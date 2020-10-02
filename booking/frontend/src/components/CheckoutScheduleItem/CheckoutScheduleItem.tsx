@@ -4,12 +4,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import format from "date-fns/format";
 
 interface ICheckoutScheduleItemProps {
-  roomNumber: number;
+  roomNumber: string;
   bookingId: string;
   endDate: string;
   onChange: (
     checked: boolean,
-    checkoutItem: { roomNumber: number; bookingId: string }
+    checkoutItem: { roomNumber: string; bookingId: string }
   ) => void;
 }
 export const CheckoutScheduleItem = (props: ICheckoutScheduleItemProps) => (

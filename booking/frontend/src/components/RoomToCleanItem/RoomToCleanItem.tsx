@@ -5,7 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import format from "date-fns/format";
 
 export type RoomToClean = {
-  roomNumber: number;
+  roomNumber: string;
   bookingId: string;
 };
 

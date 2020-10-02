@@ -6,8 +6,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { checkinRoom } from "../../services/room/room";
 
+type CheckinRouteParams = {
+  accountId: string;
+  roomNumber: string;
+  bookingId: string;
+};
+
 export const Checkin = () => {
-  const { accountId, roomNumber, bookingId } = useParams();
+  const { accountId, roomNumber, bookingId } = useParams<CheckinRouteParams>();
   const [formData, setFormData] = useState({
     bookingId: bookingId,
     roomNumber: roomNumber,

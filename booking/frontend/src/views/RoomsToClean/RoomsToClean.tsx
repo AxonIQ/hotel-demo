@@ -88,7 +88,7 @@ export const RoomsToClean = () => {
         variant="outlined"
         onClick={() => history.push(`checkout`)}
       >
-        Go to Checkout ->
+        Go to Checkout {"->"}
       </Button>
     </>
   );

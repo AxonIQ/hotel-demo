@@ -15,6 +15,11 @@ import Typography from "@material-ui/core/Typography";
 import { BookingList } from "../../components/BookingList/BookingList";
 import { SelectBookingList } from "../../components/SelectBookingList/SelectBookingList";
 
+type BookRoomRouteParams = {
+  accountId: string;
+  roomNumber: string;
+};
+
 type BookRoomForm = {
   startDate: null | string;
   endDate: null | string;
@@ -22,7 +27,7 @@ type BookRoomForm = {
 
 export const BookRoom = () => {
   const history = useHistory();
-  const { accountId, roomNumber } = useParams();
+  const { accountId, roomNumber } = useParams<BookRoomRouteParams>();
 
   const [busyDates, setBusyDates] = useState<RoomBooking[]>([]);
   const [myBookings, setMyBookings] = useState<RoomBooking[]>([]);

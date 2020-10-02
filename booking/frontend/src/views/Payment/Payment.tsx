@@ -6,8 +6,12 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { pay } from "../../services/payment/payment";
 
+export type PaymentRouteParams = {
+  accountId: string;
+};
+
 export const Payment = () => {
-  const { accountId } = useParams();
+  const { accountId } = useParams<PaymentRouteParams>();
   const [amount, setAmount] = useState(0);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

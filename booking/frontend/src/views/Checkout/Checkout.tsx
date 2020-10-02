@@ -17,7 +17,7 @@ export const Checkout = () => {
 
   const history = useHistory();
 
-  const roomsToCheckout = new Set<{ roomNumber: number; bookingId: string }>();
+  const roomsToCheckout = new Set<{ roomNumber: string; bookingId: string }>();
   useEffect(() => {
     getCheckoutSchedule().then((result) => setCheckoutSchedule(result));
 
@@ -89,7 +89,7 @@ export const Checkout = () => {
         variant="outlined"
         onClick={() => history.push(`payment-overview`)}
       >
-        Go to Payment Overview ->
+        Go to Payment Overview {"->"}
       </Button>
     </>
   );

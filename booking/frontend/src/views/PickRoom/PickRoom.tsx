@@ -8,12 +8,12 @@ import Typography from "@material-ui/core/Typography";
 
 export const PickRoom = () => {
   const history = useHistory();
-  const [roomNumber, setRoomNumber] = useState<number | null>(null);
+  const [roomNumber, setRoomNumber] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!roomNumber) {
+    if (!roomNumber || roomNumber === "") {
       alert("Please enter a room number!");
       return null;
     }
@@ -37,7 +37,7 @@ export const PickRoom = () => {
               <TextField
                 label="Room Number"
                 name="roomNumber"
-                onChange={(event) => setRoomNumber(Number(event.target.value))}
+                onChange={(event) => setRoomNumber(event.target.value)}
                 fullWidth
                 required
                 autoFocus

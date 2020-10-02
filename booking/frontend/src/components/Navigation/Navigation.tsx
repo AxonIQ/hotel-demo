@@ -5,9 +5,13 @@ import { Link as RouterLink, useHistory, useParams } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import "./navigation.scss";
 
+type NavigationRouteParams = {
+  accountId: string;
+};
+
 export const Navigation = () => {
   const history = useHistory();
-  const { accountId } = useParams();
+  const { accountId } = useParams<NavigationRouteParams>();
 
   return (
     <Typography>

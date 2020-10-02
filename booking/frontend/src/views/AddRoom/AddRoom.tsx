@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 
 export const AddRoom = () => {
   const history = useHistory();
-  const [formData, setFormData] = useState({ roomNumber: 0, description: "" });
+  const [formData, setFormData] = useState({ roomNumber: "", description: "" });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -68,7 +68,7 @@ export const AddRoom = () => {
         variant="outlined"
         onClick={() => history.push(`rooms-to-clean`)}
       >
-        Go to Cleaning Schedule ->
+        Go to Cleaning Schedule {"->"}
       </Button>
     </>
   );

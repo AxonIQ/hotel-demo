@@ -78,7 +78,7 @@ export const Register = () => {
           }}
         >
           <Button type="submit" color="primary" variant="outlined">
-            Continue as Manager ->
+            Continue as Manager {"->"}
           </Button>
         </Link>
       </div>

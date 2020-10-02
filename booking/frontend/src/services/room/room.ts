@@ -1,7 +1,7 @@
 import { fetchWrapper } from "../fetchWrapper";
 
 type AddRoomBody = {
-  roomNumber: number;
+  roomNumber: string;
   description: string;
 };
 export async function addRoom(registerObject: AddRoomBody) {
@@ -14,20 +14,20 @@ export type RoomBooking = {
   endDate: string;
 };
 export type GetRoomResponse = {
-  roomNumber: number;
+  roomNumber: string;
   roomDescription: string;
   // "EMPTY" | "BOOKED"
   roomStatus: string;
   bookings: RoomBooking[];
   myFailedBookings: RoomBooking[];
 };
-export async function getRoom(roomNumber: number): Promise<GetRoomResponse> {
+export async function getRoom(roomNumber: string): Promise<GetRoomResponse> {
   const response = await fetchWrapper.get(`/rooms/${roomNumber}/availability`);
   return response.json();
 }
 
 export async function getRoomForAccount(
-  roomNumber: number,
+  roomNumber: string,
   accountId: string
 ): Promise<GetRoomResponse> {
   const response = await fetchWrapper.get(
@@ -37,7 +37,7 @@ export async function getRoomForAccount(
 }
 
 type BookRoomProps = {
-  roomNumber: number;
+  roomNumber: string;
 };
 type BookRoomBody = {
   startDate: string;
@@ -49,7 +49,7 @@ export async function bookRoom(props: BookRoomProps, body: BookRoomBody) {
 }
 
 export type CleaningScheduleItem = {
-  roomNumber: number;
+  roomNumber: string;
   deadlines: string[];
 };
 export type GetCleaningScheduleResponse = CleaningScheduleItem[];
@@ -61,7 +61,7 @@ export async function getCleaningSchedule(): Promise<
 }
 
 type PrepareRoomProps = {
-  roomNumber: number;
+  roomNumber: string;
 };
 type PrepareRoomBody = {
   bookingId: string;
@@ -74,7 +74,7 @@ export async function prepareRoom(
 }
 
 type CheckinRoomProps = {
-  roomNumber: number;
+  roomNumber: string;
 };
 type CheckinRoomBody = {
   bookingId: string;
@@ -87,7 +87,7 @@ export async function checkinRoom(
 }
 
 type CheckoutRoomProps = {
-  roomNumber: number;
+  roomNumber: string;
 };
 type CheckoutRoomBody = {
   bookingId: string;
@@ -100,7 +100,7 @@ export async function checkoutRoom(
 }
 
 export type GetCheckoutScheduleResponse = Array<{
-  roomNumber: number;
+  roomNumber: string;
   bookings: RoomBooking[];
 }>;
 export async function getCheckoutSchedule(): Promise<
