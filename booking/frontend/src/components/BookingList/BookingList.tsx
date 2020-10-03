@@ -1,5 +1,5 @@
 import React from "react";
-import { RoomBooking } from "../../services/room/room";
+import type { RoomBooking } from "../../services/room/room";
 import format from "date-fns/format";
 
 export const BookingList = ({ bookings }: { bookings: RoomBooking[] }) => (
