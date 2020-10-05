@@ -1,5 +1,5 @@
 import React from "react";
-import { RoomBooking } from "../../services/room/room";
+import type { RoomBooking } from "../../services/room/room";
 import format from "date-fns/format";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
