@@ -68,10 +68,10 @@
                     <execution>
                         <id>Build Frontend</id>
                         <goals>
-                            <goal>npx</goal>
+                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>pnpm run build</arguments>
+                            <arguments>run build</arguments>
                         </configuration>
                         <!-- optional: default phase is "generate-resources" -->
                         <phase>generate-resources</phase>
