@@ -50,6 +50,18 @@ import io.axoniq.demo.hotel.booking.command.api.RegisterAccountCommand;
 import io.axoniq.demo.hotel.booking.query.RoomAvailabilityEntityRepository;
 
 public class GenerateEventsForDemoTest {
+    private static int NUMBER_OF_SEND_COMMANDS = 48;
+    private static int NUMBER_OF_SEND_AND_WAIT_COMMANDS = 19;
+
+    private static final int NUMBER_OF_ADD_ROOM_COMMANDS = 20;
+    private static final int NUMBER_OF_PAY_COMMANDS = 9;
+    private static final int NUMBER_OF_REGISTER_ACCOUNT_COMMANDS = 9;
+    private static final int NUMBER_OF_BOOK_ROOM_COMMANDS = 5;
+    private static final int NUMBER_OF_CHECK_OUT_COMMANDS = 5;
+    private static final int NUMBER_OF_MARK_ROOM_AS_PREPARED_COMMANDS = 5;
+    private static final int NUMBER_OF_CHECK_IN_COMMANDS = 5;
+    private static final int NUMBER_OF_PROCESS_PAYMENT_COMMANDS = 9;
+
     private CommandGateway commandGateway = mock(CommandGateway.class);
     private RoomAvailabilityEntityRepository roomAvailabilityEntityRepository = mock(RoomAvailabilityEntityRepository.class);
     private UUIDProvider uuidProvider = mock(UUIDProvider.class);
@@ -58,7 +70,6 @@ public class GenerateEventsForDemoTest {
     private UUID paymentId = UUID.randomUUID();
     @InjectMocks
     private GenerateEventsForDemo generateEventsForDemo;
-    private static int NUMBER_OF_COMMANDS_TO_SEND = 48;
 
     @BeforeEach
     void setUp() {
@@ -87,7 +98,7 @@ public class GenerateEventsForDemoTest {
 
     private void verifySendCommands() {
         ArgumentCaptor<Object> commandSendCaptor = ArgumentCaptor.forClass(Object.class);
-        verify(commandGateway, times(NUMBER_OF_COMMANDS_TO_SEND)).send(commandSendCaptor.capture());
+        verify(commandGateway, times(NUMBER_OF_SEND_COMMANDS)).send(commandSendCaptor.capture());
 
         List<AddRoomCommand> addRoomCommandList = new ArrayList<>();
         List<RegisterAccountCommand> registerAccountCommandList = new ArrayList<>();
@@ -113,20 +124,22 @@ public class GenerateEventsForDemoTest {
             }
 
         }
-        assertEquals(20, addRoomCommandList.size());
-        assertEquals(9, registerAccountCommandList.size());
-        assertEquals(5, bookRoomCommandList.size());
-        assertEquals(5, checkOutCommandList.size());
+        assertEquals(NUMBER_OF_ADD_ROOM_COMMANDS, addRoomCommandList.size());
+        assertEquals(NUMBER_OF_REGISTER_ACCOUNT_COMMANDS, registerAccountCommandList.size());
+        assertEquals(NUMBER_OF_BOOK_ROOM_COMMANDS, bookRoomCommandList.size());
+        assertEquals(NUMBER_OF_CHECK_OUT_COMMANDS, checkOutCommandList.size());
+        assertEquals(NUMBER_OF_PROCESS_PAYMENT_COMMANDS, processPaymentCommands.size());
 
         checkAddRoomCommands(addRoomCommandList);
         checkRegisterAccountCommands(registerAccountCommandList);
         IntStream.range(100, 105).forEach(roomNumber -> checkBookRoomCommands(bookRoomCommandList, roomNumber));
         IntStream.range(100, 105).forEach(roomNumber -> checkCheckOutCommand(checkOutCommandList, roomNumber));
+        checkProcessPaymentCommands(processPaymentCommands);
     }
 
     private void verifySendAndWaitCommands() {
         ArgumentCaptor<Object> commandSendAndWaitCaptor = ArgumentCaptor.forClass(Object.class);
-        verify(commandGateway, times(19)).sendAndWait(commandSendAndWaitCaptor.capture());
+        verify(commandGateway, times(NUMBER_OF_SEND_AND_WAIT_COMMANDS)).sendAndWait(commandSendAndWaitCaptor.capture());
 
         List<MarkRoomAsPreparedCommand> markRoomAsPreparedCommandList = new ArrayList<>();
         List<CheckInCommand> checkInCommandList = new ArrayList<>();
@@ -143,9 +156,9 @@ public class GenerateEventsForDemoTest {
                 payCommandList.add((PayCommand) command);
             }
         }
-        assertEquals(5, markRoomAsPreparedCommandList.size());
-        assertEquals(5, checkInCommandList.size());
-        assertEquals(9, payCommandList.size());
+        assertEquals(NUMBER_OF_MARK_ROOM_AS_PREPARED_COMMANDS, markRoomAsPreparedCommandList.size());
+        assertEquals(NUMBER_OF_CHECK_IN_COMMANDS, checkInCommandList.size());
+        assertEquals(NUMBER_OF_PAY_COMMANDS, payCommandList.size());
 
         IntStream.range(100, 105).forEach(roomNumber -> checkMarkRoomAsPreparedCommand(markRoomAsPreparedCommandList, roomNumber));
         IntStream.range(100, 105).forEach(roomNumber -> checkCheckInCommand(checkInCommandList, roomNumber));
@@ -190,5 +203,8 @@ public class GenerateEventsForDemoTest {
 
     private void checkPayCommands(List<PayCommand> payCommandList){
         assertTrue(payCommandList.contains(new PayCommand(paymentId, accountId, TOTAL_BOOKING_AMOUNT)));
+    }
+    private void checkProcessPaymentCommands(List<ProcessPaymentCommand> processPaymentCommandList){
+        assertTrue(processPaymentCommandList.contains(new ProcessPaymentCommand(paymentId)));
     }
 }
