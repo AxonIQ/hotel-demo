@@ -72,13 +72,13 @@ public class GenerateEventsForDemo {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    // Sends 67 commands to Booking context at server start-up
+    // Sends commands to Booking context at server start-up
     public void onStartup() {
         sendCommandsForBooking();
     }
 
 
-    // Sends 67 commands to Booking context every 5 minutes
+    // Sends commands to Booking context every 5 minutes
     @Scheduled(cron = "0 */5 * ? * *")
     public void sendCommandsForBooking() {
         {
