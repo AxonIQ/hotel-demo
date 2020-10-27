@@ -44,7 +44,7 @@ kubectl delete pvc --all
 
 ## Apply `Enterprise` configuration
 
-**Make sure you have correct license file configure in [.k8s/overlays/enterprise/axonserver/axonserver-enterprise-secret.yml](.k8s/overlays/enterprise/axonserver/axonserver-enterprise-secret.yml)**
+**Make sure you have correct license file configured in [.k8s/overlays/enterprise/axonserver/axonserver-enterprise-secret.yml](.k8s/overlays/enterprise/axonserver/axonserver-enterprise-secret.yml)**
 
 Make sure you have access to AxonIQ docker registry:
 
