@@ -12,19 +12,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+package io.axoniq.demo.hotel.booking.util;
 
-package io.axoniq.demo.hotel.booking;
+import java.util.UUID;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
 
+@Component
+public class UUIDProvider {
 
-@EnableScheduling
-@SpringBootApplication
-public class HotelBookingApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(HotelBookingApplication.class, args);
+    public UUID getAccountId() {
+        return UUID.randomUUID();
     }
+
+    public UUID getBookingId() {return  UUID.randomUUID();}
+
+    public UUID getPaymentId() {return  UUID.randomUUID();}
 }

@@ -43,7 +43,7 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @Aggregate(snapshotTriggerDefinition = "roomSnapshotTriggerDefinition", cache = "cache")
 class Room {
 
-    public static final String ROOM_IS_NOT_AVAILABLE = "ROOM IS NOT AVAILABLE";
+    public static final String ROOM_IS_NOT_AVAILABLE = "Room %s is not available";
 
     @AggregateIdentifier
     private Integer roomNumber;
@@ -67,7 +67,7 @@ class Room {
         } else {
             apply(new RoomBookingRejectedEvent(command.getRoomNumber(),
                                                command.getRoomBooking(),
-                                               ROOM_IS_NOT_AVAILABLE));
+                                               String.format(ROOM_IS_NOT_AVAILABLE, roomNumber)));
         }
     }
 
@@ -87,13 +87,13 @@ class Room {
 
     @CommandHandler
     void handle(CheckInCommand command) {
-        Assert.isTrue(roomIsPrepared(), "This room is not prepared");
+        Assert.isTrue(roomIsPrepared(), String.format("Room %s is not prepared", roomNumber));
         apply(new RoomCheckedInEvent(command.getRoomNumber(), command.getRoomBookingId()));
     }
 
     @CommandHandler
     void handle(CheckOutCommand command) {
-        Assert.isTrue(roomIsCheckedIn(), "This room is not checked-in");
+        Assert.isTrue(roomIsCheckedIn(), String.format("Room %s is not checked-in", roomNumber));
         apply(new RoomCheckedOutEvent(command.getRoomNumber(), command.getRoomBookingId()));
     }
 

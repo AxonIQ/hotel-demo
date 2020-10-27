@@ -32,6 +32,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.UUID;
 
+import static io.axoniq.demo.hotel.booking.TestFactoryKt.ROOM_NUMBER;
 import static io.axoniq.demo.hotel.booking.TestFactoryKt.getBookingPeriod;
 import static io.axoniq.demo.hotel.booking.TestFactoryKt.getBookingPeriod2;
 
@@ -77,7 +78,7 @@ class RoomTest {
         RoomBookedEvent roomBookedEvent = new RoomBookedEvent(TestFactoryKt.ROOM_NUMBER, getBookingPeriod());
         RoomBookingRejectedEvent roomBookingRejectedEvent = new RoomBookingRejectedEvent(TestFactoryKt.ROOM_NUMBER,
                                                                                          getBookingPeriod(),
-                                                                                         Room.ROOM_IS_NOT_AVAILABLE);
+                                                                                         String.format(Room.ROOM_IS_NOT_AVAILABLE, ROOM_NUMBER));
 
         testFixture.given(roomAddedEvent, roomBookedEvent)
                    .when(bookRoomCommand)
