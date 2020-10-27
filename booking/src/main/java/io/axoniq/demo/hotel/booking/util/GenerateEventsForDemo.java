@@ -13,6 +13,7 @@
  *  limitations under the License.
  */
 package io.axoniq.demo.hotel.booking.util;
+
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -27,9 +28,7 @@ import java.util.stream.IntStream;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -71,13 +70,6 @@ public class GenerateEventsForDemo {
         this.uuidProvider = uuidProvider;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    // Sends commands to Booking context at server start-up
-    public void onStartup() {
-        sendCommandsForBooking();
-    }
-
-
     // Sends commands to Booking context every 5 minutes
     @Scheduled(cron = "0 */5 * ? * *")
     public void sendCommandsForBooking() {
@@ -88,7 +80,9 @@ public class GenerateEventsForDemo {
             }
             List<UUID> accountIds = registerAccounts();
             Map<Integer, UUID> roomBookingIdMap = bookRooms(accountIds);
-            checkInCheckOut(roomBookingIdMap);
+            markRoomAsPrepared(roomBookingIdMap);
+            checkIn(roomBookingIdMap);
+            checkOut(roomBookingIdMap);
             processPayment(accountIds);
             logger.info("Finished with automatically sending commands to Booking context");
         }
@@ -103,19 +97,24 @@ public class GenerateEventsForDemo {
         );
     }
 
-    private void checkInCheckOut(Map<Integer, UUID> roomBookingIdMap) {
-        roomBookingIdMap.forEach((roomNumber, bookingId) -> {
-                                     commandGateway.sendAndWait(new MarkRoomAsPreparedCommand(roomNumber, bookingId));
-                                     commandGateway.sendAndWait(new CheckInCommand(roomNumber, bookingId));
-                                     commandGateway.send(new CheckOutCommand(roomNumber, bookingId));
-                                 }
-        );
+    private void markRoomAsPrepared(Map<Integer, UUID> roomBookingIdMap) {
+        roomBookingIdMap.forEach((roomNumber, bookingId) ->
+                                         commandGateway.send(new MarkRoomAsPreparedCommand(roomNumber, bookingId)));
+    }
+
+    private void checkIn(Map<Integer, UUID> roomBookingIdMap) {
+        roomBookingIdMap.forEach((roomNumber, bookingId) ->
+                                     commandGateway.send(new CheckInCommand(roomNumber, bookingId)));
+    }
+
+    private void checkOut(Map<Integer, UUID> roomBookingIdMap) {
+        roomBookingIdMap.forEach((roomNumber, bookingId) ->
+                                         commandGateway.send(new CheckOutCommand(roomNumber, bookingId)));
     }
 
     private Map<Integer, UUID> bookRooms(List<UUID> accountIds) {
         Map<Integer, UUID> roomBookingIdMap = new HashMap<>();
         IntStream.range(0, 5).forEach(index -> {
-
                                           Integer startBookingAfterDays = Math.toIntExact(Math.round(Math.random() * 1000.0));
                                           Instant startBooking = Instant.now().plus(startBookingAfterDays, ChronoUnit.DAYS);
                                           Instant endBooking = startBooking.plus(3, ChronoUnit.DAYS);
@@ -160,7 +159,7 @@ public class GenerateEventsForDemo {
                 roomNumber -> addRoom(roomNumber, DOUBLE_ROOM_MOUNTAIN_SIDE_DESCRIPTION));
     }
 
-    private void addRoom(int roomNumber, String roomDescription){
+    private void addRoom(int roomNumber, String roomDescription) {
         commandGateway.send(new AddRoomCommand(roomNumber,
                                                roomDescription));
     }
