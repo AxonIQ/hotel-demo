@@ -39,7 +39,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <axon.version>4.4.3</axon.version>
+        <axon.version>4.4.4</axon.version>
         <axon.reactor.version>4.4.2</axon.reactor.version>
         <axon.extension.tracing.version>4.4</axon.extension.tracing.version>
         <kotlin.version>1.4.10</kotlin.version>
