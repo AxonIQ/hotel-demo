@@ -50,7 +50,7 @@ Make sure you have access to AxonIQ docker registry:
 
 ```bash
 gcloud auth configure-docker
-docker pull eu.gcr.io/axoniq-devops/axonserver-enterprise:4.4.3
+docker pull eu.gcr.io/axoniq-devops/axonserver-enterprise:4.4.7
 ```
 
 You can run the following command to start Axon Server EE edition:

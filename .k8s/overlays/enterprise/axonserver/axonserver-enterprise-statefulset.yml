@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: axonserver-enterprise
-          image: eu.gcr.io/axoniq-devops/axonserver-enterprise:4.4.3
+          image: eu.gcr.io/axoniq-devops/axonserver-enterprise:4.4.7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8124
