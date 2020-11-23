@@ -10,4 +10,5 @@ data:
     axoniq.axonserver.domain=axonserver.default.svc.cluster.local
     axoniq.axonserver.accesscontrol.enabled=true
     axoniq.axonserver.accesscontrol.internal-token=internal-token-for-axonserver
-
+    axoniq.axonserver.metrics.grpc.enabled=true
+    axoniq.axonserver.metrics.grpc.prometheus-enabled=true
