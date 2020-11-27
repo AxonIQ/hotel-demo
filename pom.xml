@@ -44,7 +44,7 @@
         <axon.extension.tracing.version>4.4</axon.extension.tracing.version>
         <kotlin.version>1.4.20</kotlin.version>
         <swagger.version>3.0.1-SNAPSHOT</swagger.version>
-        <frontend-maven-plugin.version>1.10.3</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.10.4</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v10.16.3</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>6.9.0</frontend-maven-plugin.npmVersion>
         <frontend-build-directory>frontend/build</frontend-build-directory>
