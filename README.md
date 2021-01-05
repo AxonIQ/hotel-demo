@@ -4,7 +4,9 @@ It's the implementation of the example used in this blog post: [https://eventmod
 
 Event modeling adopts Event Storming sticky notes. The final piece was the UI/UX aspects to complete what more resembles a movie story board (white board - or digital white board). While Event Storming focuses in discovering the problem space, Event Modeling creates a blueprint for a solution.
 
-[Download specification](Demo.pdf)
+[Download specification (Demo.pdf)](Demo.pdf)
+
+The Miro board is [publicly available (view only)](https://miro.com/app/board/o9J_kuZkBh8=/) as well. 
 
 ## Prerequisites
 
