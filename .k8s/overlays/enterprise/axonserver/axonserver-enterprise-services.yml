@@ -25,6 +25,7 @@ metadata:
     prometheus.io/path: "/actuator/prometheus"
     prometheus.io/port: "8024"
 spec:
+  type: ClusterIP
   ports:
     - port: 8024
       name: gui
@@ -33,5 +34,3 @@ spec:
   sessionAffinity: ClientIP
   selector:
     app: axonserver
-  # Headless service - Sometimes you don’t need load-balancing and a single Service IP. In this case, you can create what are termed “headless” Services, by explicitly specifying "None" for the cluster IP (.spec.clusterIP).
-  clusterIP: None
