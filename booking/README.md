@@ -5,12 +5,25 @@ cd booking/
 mvn spring-boot:run
 ```
 
+The data protection (DP) module is configured in the `dataprotection` profile. A valid license for the DP module is
+required. A running Vault instance is also required. The configuration can be set up in
+the [application.properties](https://github.com/AxonIQ/hotel-demo/blob/master/booking/src/main/resources/application.properties)
+.
+
+``shell script cd booking/ mvn spring-boot:run mvn spring-boot:run -Dspring-boot.run.jvmArguments="
+-Daxoniq.dataprotection.license=`path-to-license`/axoniq.license"
+-Dspring-boot.run.profiles=dataprotection
+
+```
+
 - UI: [http://localhost:8080](http://localhost:8080)
-- Swagger specification of REST/HTTP endpoints: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- Swagger specification of REST/HTTP
+  endpoints: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ## RSocket
 
-Download the [RSocket Client CLI](https://github.com/making/rsc) by Toshiaki Maki into the root folder. There is an [official RSocket CLI](https://github.com/rsocket/rsocket-cli) elsewhere, but Toshiaki’s is a little easier to use.
+Download the [RSocket Client CLI](https://github.com/making/rsc) by Toshiaki Maki into the root folder. There is
+an [official RSocket CLI](https://github.com/rsocket/rsocket-cli) elsewhere, but Toshiaki’s is a little easier to use.
 In the terminal, download the JAR file as follows:
 
 ```shell script

@@ -10,13 +10,19 @@ import io.axoniq.dataprotection.cryptoengine.vault.VaultCryptoEngine;
 import okhttp3.OkHttpClient;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.json.JacksonSerializer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Profile("dataprotection")
+@ConfigurationProperties(prefix = "vault.server")
 @Configuration
 public class DataProtectionConfiguration {
+
+    private String url;
+    private String token;
+    private String prefix;
 
     @Bean
     public OkHttpClient okHttpClient() {
@@ -25,10 +31,7 @@ public class DataProtectionConfiguration {
 
     @Bean
     public CryptoEngine cryptoEngine(OkHttpClient okHttpClient) {
-        return new VaultCryptoEngine(okHttpClient,
-                                     "http://localhost:8200",
-                                     "s.oJfrndNS65jzSbINevy9M9dr",
-                                     "hotel-keys/");
+        return new VaultCryptoEngine(okHttpClient, url, token, prefix);
     }
 
     @Bean("eventSerializer")
@@ -41,5 +44,17 @@ public class DataProtectionConfiguration {
                 .builder()
                 .objectMapper(objectMapper)
                 .build());
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 }
