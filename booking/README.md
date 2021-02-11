@@ -5,15 +5,14 @@ cd booking/
 mvn spring-boot:run
 ```
 
-The data protection (DP) module is configured in the `dataprotection` profile. A valid license for the DP module is
+The data protection (DP) module is configured in the dataprotection profile. A valid license for the DP module is
 required. A running Vault instance is also required. The configuration can be set up in
 the [application.properties](https://github.com/AxonIQ/hotel-demo/blob/master/booking/src/main/resources/application.properties)
-.
 
-``shell script cd booking/ mvn spring-boot:run mvn spring-boot:run -Dspring-boot.run.jvmArguments="
--Daxoniq.dataprotection.license=`path-to-license`/axoniq.license"
+```shell script
+cd booking/ 
+mvn spring-boot:run mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Daxoniq.dataprotection.license=`path-to-license`/axoniq.license"
 -Dspring-boot.run.profiles=dataprotection
-
 ```
 
 - UI: [http://localhost:8080](http://localhost:8080)
