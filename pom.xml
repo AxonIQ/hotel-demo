@@ -40,6 +40,7 @@
     <properties>
         <java.version>11</java.version>
         <axon.version>4.4.7</axon.version>
+        <axon.dataprotection.version>4.1</axon.dataprotection.version>
         <axon.reactor.version>4.4.2</axon.reactor.version>
         <axon.extension.tracing.version>4.4</axon.extension.tracing.version>
         <kotlin.version>1.4.30</kotlin.version>
@@ -78,6 +79,16 @@
             <artifactId>axon-test</artifactId>
             <version>${axon.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.axoniq.dataprotection</groupId>
+            <artifactId>axon-data-protection-axon4</artifactId>
+            <version>${axon.dataprotection.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.1</version>
         </dependency>
         <!-- Open Tracing -->
         <dependency>
@@ -330,7 +341,6 @@
             </releases>
         </repository>
     </repositories>
-
 
     <profiles>
         <profile>
