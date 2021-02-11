@@ -5,9 +5,12 @@ cd booking/
 mvn spring-boot:run
 ```
 
-The data protection (DP) module is configured in the dataprotection profile. A valid license for the DP module is
-required. A running Vault instance is also required. The configuration can be set up in
-the [application.properties](https://github.com/AxonIQ/hotel-demo/blob/master/booking/src/main/resources/application.properties)
+The data protection (DP) module is configured in the `dataprotection` profile. A valid license for the DP module and a
+running Vault instance are required. The configuration can be set up in
+the [application.properties](src/main/resources/application.properties)
+In Vault a secret engine of type kv and version `1` needs to be added the path should match the one used in the
+application.properties.
+![Vault config](src/main/resources/secret-engine-dataprotection.png?raw=true)
 
 ```shell script
 cd booking/ 

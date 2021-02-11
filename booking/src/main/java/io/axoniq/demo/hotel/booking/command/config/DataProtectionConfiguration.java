@@ -22,7 +22,7 @@ public class DataProtectionConfiguration {
 
     private String url;
     private String token;
-    private String prefix;
+    private String path;
 
     @Bean
     public OkHttpClient okHttpClient() {
@@ -31,7 +31,7 @@ public class DataProtectionConfiguration {
 
     @Bean
     public CryptoEngine cryptoEngine(OkHttpClient okHttpClient) {
-        return new VaultCryptoEngine(okHttpClient, url, token, prefix);
+        return new VaultCryptoEngine(okHttpClient, url, token, path);
     }
 
     @Bean("eventSerializer")
@@ -54,7 +54,7 @@ public class DataProtectionConfiguration {
         this.token = token;
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
+    public void setPath(String path) {
+        this.path = path;
     }
 }
