@@ -11,7 +11,7 @@ the [application.properties](https://github.com/AxonIQ/hotel-demo/blob/master/bo
 
 ```shell script
 cd booking/ 
-mvn spring-boot:run mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Daxoniq.dataprotection.license=`path-to-license`/axoniq.license"
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Daxoniq.dataprotection.license=`path-to-license`/axoniq.license"
 -Dspring-boot.run.profiles=dataprotection
 ```
 
