@@ -1,5 +1,8 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
 .build
 build
 /node
-web_modules
-node_modules
