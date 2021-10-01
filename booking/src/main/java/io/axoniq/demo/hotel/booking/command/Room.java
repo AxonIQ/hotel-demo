@@ -49,7 +49,7 @@ class Room {
     private Integer roomNumber;
     private RoomStatus roomStatus;
     @AggregateMember
-    private List<Booking> bookings = new ArrayList<>();
+    private final List<Booking> bookings = new ArrayList<>();
 
     private Room() {
     }

@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.5.5</version>
     </parent>
 
     <modules>
@@ -39,9 +39,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <axon.version>4.5.3</axon.version>
-        <axon.reactor.version>4.5</axon.reactor.version>
-        <axon.extension.tracing.version>4.5</axon.extension.tracing.version>
+        <axon.version>4.5.4</axon.version>
         <kotlin.version>1.5.21</kotlin.version>
         <swagger.version>3.0.0</swagger.version>
         <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
@@ -56,27 +54,22 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
-            <version>${axon.version}</version>
         </dependency>
         <dependency>
             <groupId>org.axonframework.extensions.reactor</groupId>
             <artifactId>axon-reactor-spring-boot-starter</artifactId>
-            <version>${axon.reactor.version}</version>
         </dependency>
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-micrometer</artifactId>
-            <version>${axon.version}</version>
         </dependency>
         <dependency>
             <groupId>org.axonframework.extensions.tracing</groupId>
             <artifactId>axon-tracing-spring-boot-starter</artifactId>
-            <version>${axon.extension.tracing.version}</version>
         </dependency>
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-test</artifactId>
-            <version>${axon.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Open Tracing -->
@@ -184,6 +177,17 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-bom</artifactId>
+                <version>${axon.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -330,7 +334,6 @@
             </releases>
         </repository>
     </repositories>
-
 
     <profiles>
         <profile>
