@@ -47,7 +47,7 @@ mvn spring-boot:run
 
 - UI: [http://localhost:8081](http://localhost:8081)
 
-### Using [Axon Cloud](https://cloud.axoniq.io/)
+### Using [AxonIQ Cloud](https://cloud.axoniq.io/)
 
 - Create your account (you can select free Developer account option) [https://cloud.axoniq.io/](https://cloud.axoniq.io/)
 - Create `booking` and `inventory` contexts
