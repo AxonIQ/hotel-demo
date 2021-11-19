@@ -27,6 +27,10 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.axoniq.axonserver.util</groupId>
             <artifactId>event-file-transformer-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
@@ -54,9 +58,9 @@
                 <version>3.3.0</version>
 
                 <configuration>
-                    <descriptors>
-                        <descriptor>assembly.xml</descriptor>
-                    </descriptors>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
 
                 <executions>
