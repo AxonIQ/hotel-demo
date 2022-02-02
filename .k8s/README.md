@@ -20,6 +20,18 @@ mvn clean verify jib:dockerBuild
 
 [Kustomize](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/#overview-of-kustomize) is a tool for customizing Kubernetes configurations. It is part of the `kubectl`.
 
+
+### MicroK8s
+When running MicroK8s under Ubuntu Snap, the docker images built by jib are not directly available to Kubernetes. You can import the images to the MicroK8s distribution, using the following commands:
+
+```bash
+cd /tmp
+docker save axoniq-hotel-booking > axoniq-hotel-booking.tar
+docker save axoniq-hotel-inventory > axoniq-hotel-inventory.tar
+microk8s ctr image import axoniq-hotel-booking.tar
+microk8s ctr image import axoniq-hotel-inventory.tar
+```
+
 ## Apply `Standard` configuration
 
 You can run the following command to start your application(s) with `standard` (Axon Server SE) edition:

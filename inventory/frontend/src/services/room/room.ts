@@ -20,7 +20,7 @@ type CreateRoomBody = {
   description: string;
 };
 export async function createRoom(body: CreateRoomBody) {
-  return await fetchWrapper.post("http://localhost:8081/rooms", body);
+  return await fetchWrapper.post("/rooms", body);
 }
 
 type AddRoomToInventoryProps = {
@@ -28,6 +28,6 @@ type AddRoomToInventoryProps = {
 };
 export async function addRoomToInventory(props: AddRoomToInventoryProps) {
   return await fetchWrapper.post(
-    `http://localhost:8081/rooms/${props.roomNumber}/ininventory`
+    `/rooms/${props.roomNumber}/ininventory`
   );
 }
