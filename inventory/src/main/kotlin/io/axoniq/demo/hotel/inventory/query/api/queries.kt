@@ -13,7 +13,6 @@
  *  limitations under the License.
  */
 
-package io.axoniq.demo.hotel.inventory.command.web.api
+package io.axoniq.demo.hotel.inventory.query.api
 
-data class RoomRequestData(val roomNumber: Int, val description: String)
-data class RoomOverviewData(val id: String, val roomNumber: Int, val description: String, val addedToInventory: Boolean, val addedToBooking: Boolean)
+class FindRooms

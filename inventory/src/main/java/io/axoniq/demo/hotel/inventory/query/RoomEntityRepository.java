@@ -13,7 +13,12 @@
  *  limitations under the License.
  */
 
-package io.axoniq.demo.hotel.inventory.command.web.api
+package io.axoniq.demo.hotel.inventory.query;
 
-data class RoomRequestData(val roomNumber: Int, val description: String)
-data class RoomOverviewData(val id: String, val roomNumber: Int, val description: String, val addedToInventory: Boolean, val addedToBooking: Boolean)
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RoomEntityRepository extends JpaRepository<RoomEntity, String> {
+
+}
