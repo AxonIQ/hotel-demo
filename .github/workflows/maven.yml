@@ -1,0 +1,34 @@
+name: Axon Hotel Demo
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    name: Test and Build on JDK ${{ matrix.java-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - java-version: 11
+          - java-version: 17
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java-version }}
+          cache: maven
+      - name: Build
+        run: |
+          ./mvnw -B -U clean verify
