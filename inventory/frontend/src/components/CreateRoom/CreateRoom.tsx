@@ -15,7 +15,6 @@
 
 import React, {useState} from "react";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import {createRoom} from "../../services/room/room";
 import Typography from "@mui/material/Typography";
