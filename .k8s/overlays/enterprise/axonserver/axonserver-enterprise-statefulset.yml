@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: axonserver-enterprise
-          image: eu.gcr.io/axoniq-devops/axonserver-enterprise:4.4.7
+          image: axoniq/axonserver-enterprise:4.5.13-dev
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8124
@@ -31,7 +31,7 @@ spec:
               mountPath: /data
               # Because Spring Boot apps browse the config folder for configuration files by default, no further configuration is required.
             - name: configuration
-              mountPath: /config
+              mountPath: /axonserver/config
             - name: secrets
               mountPath: /secrets
           resources:
