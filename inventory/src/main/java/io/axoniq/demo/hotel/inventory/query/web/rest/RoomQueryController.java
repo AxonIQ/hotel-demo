@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2020. AxonIQ
+ * Copyright (c) 2020-2022. AxonIQ
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;)
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-public class RoomQueryController {
+class RoomQueryController {
 
     private final ReactorQueryGateway reactorQueryGateway;
 
@@ -37,7 +37,7 @@ public class RoomQueryController {
     }
 
     @GetMapping(path = "/rooms")
-    public Mono<List<RoomOverviewData>> roomAvailability() {
+    public Mono<List<RoomOverviewData>> allRooms() {
         return reactorQueryGateway.query(new FindRooms(), ResponseTypes.multipleInstancesOf(RoomOverviewData.class));
     }
 }

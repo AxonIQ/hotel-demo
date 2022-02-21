@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2020. AxonIQ
+ * Copyright (c) 2020-2022. AxonIQ
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;)
  * you may not use this file except in compliance with the License.
@@ -31,13 +31,7 @@ import java.util.stream.Collectors;
 @Component
 @ProcessingGroup("room")
 class RoomHandler {
-
     private final RoomEntityRepository roomEntityRepository;
-
-
-    private RoomOverviewData convert(RoomEntity entity) {
-        return new RoomOverviewData(entity.getRoomId(), entity.getRoomNumber(), entity.getDescription(), entity.getAddedToInventory(), entity.getAddedToBooking());
-    }
 
     RoomHandler(RoomEntityRepository roomEntityRepository) {
         this.roomEntityRepository = roomEntityRepository;
@@ -65,6 +59,14 @@ class RoomHandler {
 
     @QueryHandler
     List<RoomOverviewData> on(FindRooms query) {
-        return this.roomEntityRepository.findAll().stream().map(this::convert).collect(Collectors.toList());
+        return this.roomEntityRepository
+                .findAll()
+                .stream()
+                .map(RoomHandler::convert)
+                .collect(Collectors.toList());
+    }
+
+    private static RoomOverviewData convert(RoomEntity entity) {
+        return new RoomOverviewData(entity.getRoomId(), entity.getRoomNumber(), entity.getDescription(), entity.getAddedToInventory(), entity.getAddedToBooking());
     }
 }
