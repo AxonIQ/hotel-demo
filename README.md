@@ -12,6 +12,12 @@ The Miro board is [publicly available (view only)](https://miro.com/app/board/o9
 
 - Java 11
 
+## Recommendations
+Installing the [Axon Framework IntelliJ plugin](https://plugins.jetbrains.com/plugin/18628-axon-framework) will help you visualize the application's publishers and handlers. 
+You can easily install this by going to the Marketplace in your IntelliJ plugin settings. 
+
+![Intellij Plugin Screenshot](.assets/IntellijPlugin.png)
+
 ## Running the application(s) locally
 
 **Requirements**
