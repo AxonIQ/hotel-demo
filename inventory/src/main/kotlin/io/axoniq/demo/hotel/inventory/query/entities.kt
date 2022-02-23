@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2022. AxonIQ
+ * Copyright (c) 2022-2022. AxonIQ
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;)
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,10 @@
  *  limitations under the License.
  */
 
-package io.axoniq.demo.hotel.inventory.command.web.api
+package io.axoniq.demo.hotel.inventory.query
 
-data class RoomRequestData(val roomNumber: Int, val description: String)
-data class RoomOverviewData(val id: String, val roomNumber: Int, val description: String, val addedToInventory: Boolean, val addedToBooking: Boolean)
+import javax.persistence.Entity
+import javax.persistence.Id
+
+@Entity
+data class RoomEntity(@Id var roomId: String, var roomNumber: Int, var description: String, var addedToInventory: Boolean = false, var addedToBooking: Boolean)

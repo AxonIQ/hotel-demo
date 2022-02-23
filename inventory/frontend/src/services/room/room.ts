@@ -15,6 +15,14 @@
 
 import { fetchWrapper } from "../fetchWrapper";
 
+export type RoomOverviewData = {
+  id: string;
+  roomNumber: string;
+  description: string;
+  addedToInventory: boolean;
+  addedToBooking: boolean;
+}
+
 type CreateRoomBody = {
   roomNumber: string;
   description: string;
@@ -24,10 +32,15 @@ export async function createRoom(body: CreateRoomBody) {
 }
 
 type AddRoomToInventoryProps = {
-  roomNumber: string;
+  id: string;
 };
 export async function addRoomToInventory(props: AddRoomToInventoryProps) {
   return await fetchWrapper.post(
-    `/rooms/${props.roomNumber}/ininventory`
+    `/rooms/${props.id}/ininventory`
   );
+}
+
+export async function getRooms(): Promise<RoomOverviewData[]> {
+  const response = await fetchWrapper.get('/rooms')
+  return await response.json() as RoomOverviewData[]
 }

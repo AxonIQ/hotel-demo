@@ -13,6 +13,17 @@
  *  limitations under the License.
  */
 
+ create table IF NOT EXISTS room_entity
+(
+	room_id varchar(255) not null
+		constraint room_entity_pkey
+			primary key,
+	room_number integer not null,
+	description varchar(255),
+	added_to_inventory tinyint,
+	added_to_booking tinyint
+);
+
 create table IF NOT EXISTS saga_entry
 (
 	saga_id varchar(255) not null
