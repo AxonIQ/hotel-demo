@@ -46,7 +46,7 @@
         <frontend-maven-plugin.nodeVersion>v14.16.1</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>7.12.0</frontend-maven-plugin.npmVersion>
         <frontend-build-directory>frontend/build</frontend-build-directory>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     </properties>
 
     <dependencies>
