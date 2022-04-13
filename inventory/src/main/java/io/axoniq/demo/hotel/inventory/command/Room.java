@@ -24,7 +24,9 @@ import io.axoniq.demo.hotel.inventory.command.api.RoomCreatedEvent;
 import io.axoniq.demo.hotel.inventory.command.api.RoomStatus;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateCreationPolicy;
 import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.CreationPolicy;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.util.Assert;
 
@@ -33,7 +35,7 @@ import java.util.UUID;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
-class Room {
+public class Room {
 
     @AggregateIdentifier
     private UUID roomId;
@@ -41,11 +43,12 @@ class Room {
     private RoomStatus roomStatus;
     private String description;
 
-    private Room() {
+    public Room() {
     }
 
     @CommandHandler
-    Room(CreateRoomCommand command) {
+    @CreationPolicy(AggregateCreationPolicy.ALWAYS)
+    public void create(CreateRoomCommand command) {
         apply(new RoomCreatedEvent(command.getRoomId(), command.getRoomNumber(), command.getRoomDescription()));
     }
 

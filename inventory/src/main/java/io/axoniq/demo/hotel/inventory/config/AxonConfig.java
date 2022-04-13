@@ -16,12 +16,19 @@
 package io.axoniq.demo.hotel.inventory.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.DuplicateCommandHandlerResolver;
+import org.axonframework.commandhandling.SimpleCommandBus;
+import org.axonframework.common.transaction.TransactionManager;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
+import org.axonframework.messaging.interceptors.CorrelationDataInterceptor;
+import org.axonframework.spring.config.AxonConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.cors.CorsConfiguration;
@@ -49,14 +56,12 @@ public class AxonConfig {
 
     // Axon
 
-    @Autowired
-    public void reactiveCommandGatewayConfiguration(ReactorCommandGateway reactorCommandGateway) {
-        reactorCommandGateway.registerDispatchInterceptor(monoMessage -> monoMessage.doOnNext(message -> log.info("Dispatched command message: [{}]", message.getPayloadType().getSimpleName())));
-    }
-
-    @Autowired
-    public void reactiveCommandGatewayConfiguration(ReactorQueryGateway reactorQueryGateway) {
-        reactorQueryGateway.registerDispatchInterceptor(monoMessage -> monoMessage.doOnNext(message -> log.info("Dispatched query message: [{}]", message.getPayloadType().getSimpleName())));
+    @Bean
+    @Primary
+    public SimpleCommandBus commandBus(TransactionManager txManager, AxonConfiguration axonConfiguration, DuplicateCommandHandlerResolver duplicateCommandHandlerResolver) {
+        SimpleCommandBus commandBus = SimpleCommandBus.builder().transactionManager(txManager).duplicateCommandHandlerResolver(duplicateCommandHandlerResolver).messageMonitor(axonConfiguration.messageMonitor(CommandBus.class, "commandBus")).build();
+        commandBus.registerHandlerInterceptor(new CorrelationDataInterceptor(axonConfiguration.correlationDataProviders()));
+        return commandBus;
     }
 
     // CORS
