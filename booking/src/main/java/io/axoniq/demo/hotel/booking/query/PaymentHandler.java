@@ -68,7 +68,7 @@ class PaymentHandler {
 
     @EventHandler
     void on(PaymentSucceededEvent event) {
-        PaymentEntity entity = this.paymentEntityRepository.getOne(event.getPaymentId().toString());
+        PaymentEntity entity = this.paymentEntityRepository.getById(event.getPaymentId().toString());
         entity.setPaymentStatus(PaymentStatus.SUCCEEDED);
         this.paymentEntityRepository.save(entity);
 
@@ -88,7 +88,7 @@ class PaymentHandler {
 
     @QueryHandler
     PaymentResponseData handle(FindPayment query) {
-        return convert(paymentEntityRepository.getOne(query.getPaymentId().toString()));
+        return convert(paymentEntityRepository.getById(query.getPaymentId().toString()));
     }
 
     @QueryHandler

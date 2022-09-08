@@ -290,19 +290,6 @@
         <url>https://github.com/AxonIQ/axoniq-hotel</url>
     </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>axoniq-nexus</id>
-            <url>https://nexus.dev.axoniq.net/repository/products-snapshots</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-        <repository>
-            <id>axoniq-nexus</id>
-            <url>https://nexus.dev.axoniq.net/repository/products-releases</url>
-            <uniqueVersion>true</uniqueVersion>
-        </repository>
-    </distributionManagement>
-
     <repositories>
         <repository>
             <id>jcenter-release</id>
@@ -314,11 +301,6 @@
             <id>jcenter-snapshots</id>
             <name>jcenter</name>
             <url>http://oss.jfrog.org/artifactory/oss-snapshot-local/</url>
-        </repository>
-
-        <repository>
-            <id>axoniq-nexus</id>
-            <url>https://nexus.dev.axoniq.net/repository/products/</url>
         </repository>
 
         <repository>
