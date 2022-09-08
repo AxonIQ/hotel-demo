@@ -68,7 +68,7 @@ class RoomCheckoutScheduleHandler {
 
     @EventHandler
     void on(RoomCheckedInEvent event) {
-        RoomCheckoutScheduleEntity entity = this.roomCheckoutScheduleRepository.getOne(event.getRoomNumber());
+        RoomCheckoutScheduleEntity entity = this.roomCheckoutScheduleRepository.getById(event.getRoomNumber());
         entity.setRoomStatus(RoomStatus.TAKEN);
         this.roomCheckoutScheduleRepository.save(entity);
 
