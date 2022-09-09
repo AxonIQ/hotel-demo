@@ -1,5 +1,7 @@
 # AxonIQ hotel demo
 
+**Kafka workshop branch for AxonIQ Con 2022, might not get updates, see [workshop](WORKSHOP.md)**
+
 It's the implementation of the example used in this blog post: [https://eventmodeling.org/posts/what-is-event-modeling/](https://eventmodeling.org/posts/what-is-event-modeling)
 
 Event modeling adopts Event Storming sticky notes. The final piece was the UI/UX aspects to complete what more resembles a movie story board (white board - or digital white board). While Event Storming focuses in discovering the problem space, Event Modeling creates a blueprint for a solution.

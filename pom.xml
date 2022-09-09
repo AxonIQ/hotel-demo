@@ -32,9 +32,13 @@
     </parent>
 
     <modules>
+        <module>booking-api</module>
         <module>booking</module>
         <module>inventory</module>
         <module>account</module>
+        <module>promo-api</module>
+        <module>promo-mock</module>
+        <module>integration</module>
     </modules>
 
     <properties>

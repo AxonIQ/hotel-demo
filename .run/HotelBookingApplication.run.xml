@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="HotelBookingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="demo" />
+    <module name="axoniq-hotel-booking" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.axoniq.demo.hotel.booking.HotelBookingApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

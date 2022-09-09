@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="IntegrationApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <module name="axoniq-hotel-promo-integration" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.axoniq.demo.hotel.promo_integration.IntegrationApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

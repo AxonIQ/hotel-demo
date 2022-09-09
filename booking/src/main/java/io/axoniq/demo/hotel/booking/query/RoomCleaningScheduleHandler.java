@@ -66,7 +66,7 @@ class RoomCleaningScheduleHandler {
 
     @EventHandler
     void on(RoomPreparedEvent event) {
-        RoomCleaningScheduleEntity entity = this.roomCleaningScheduleRepository.getById(event.getRoomNumber());
+        RoomCleaningScheduleEntity entity = this.roomCleaningScheduleRepository.getReferenceById(event.getRoomNumber());
         entity.setBookings(entity.getBookings().stream().filter(it -> !it.getId().equals(event.getRoomBooking().getBookingId().toString())).collect(Collectors.toList()));
         this.roomCleaningScheduleRepository.save(entity);
 

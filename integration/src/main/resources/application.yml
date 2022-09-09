@@ -1,0 +1,34 @@
+axon:
+  axonserver:
+    client-id: promo-integration
+    servers: localhost:8124
+  serializer:
+    events: jackson
+  kafka:
+    publisher:
+      enabled: true
+    fetcher:
+      enabled: true
+    consumer:
+      event-processor-mode: pooled_streaming
+      bootstrap-servers: localhost:9092
+      auto-offset-reset: earliest
+    producer:
+      event-processor-mode: pooled_streaming
+      bootstrap-servers: localhost:9092
+    properties:
+      security.protocol: PLAINTEXT
+    message-converter-mode: cloud_event
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    beans:
+      enabled: true
+server:
+  port: 8085

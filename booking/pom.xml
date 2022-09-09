@@ -35,6 +35,14 @@
         <start-class>io.axoniq.demo.hotel.booking.HotelBookingApplication</start-class>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.axoniq.demo</groupId>
+            <artifactId>axoniq-hotel-booking-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
