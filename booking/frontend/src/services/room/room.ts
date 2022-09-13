@@ -60,7 +60,7 @@ type BookRoomBody = {
   accountID: string;
 };
 export async function bookRoom(props: BookRoomProps, body: BookRoomBody) {
-  return await fetchWrapper.post(`/rooms/${props.roomNumber}/booked`, body);
+  return await fetchWrapper.post(`/rooms/${props.roomNumber}/book`, body);
 }
 
 export type CleaningScheduleItem = {
@@ -85,7 +85,7 @@ export async function prepareRoom(
   props: PrepareRoomProps,
   body: PrepareRoomBody
 ) {
-  return await fetchWrapper.post(`/rooms/${props.roomNumber}/prepared`, body);
+  return await fetchWrapper.post(`/rooms/${props.roomNumber}/prepare`, body);
 }
 
 type CheckinRoomProps = {
@@ -98,7 +98,7 @@ export async function checkinRoom(
   props: CheckinRoomProps,
   body: CheckinRoomBody
 ) {
-  return await fetchWrapper.post(`/rooms/${props.roomNumber}/checkedin`, body);
+  return await fetchWrapper.post(`/rooms/${props.roomNumber}/check-in`, body);
 }
 
 type CheckoutRoomProps = {
@@ -111,7 +111,7 @@ export async function checkoutRoom(
   props: CheckoutRoomProps,
   body: CheckoutRoomBody
 ) {
-  return await fetchWrapper.post(`/rooms/${props.roomNumber}/checkedout`, body);
+  return await fetchWrapper.post(`/rooms/${props.roomNumber}/check-out`, body);
 }
 
 export type GetCheckoutScheduleResponse = Array<{

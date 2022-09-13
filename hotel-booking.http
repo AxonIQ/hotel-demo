@@ -1,0 +1,34 @@
+### Add hotel room to the inventory
+
+POST http://localhost:8080/rooms
+Content-Type: application/json
+
+{"roomNumber": "100","description": "Room with sea view"}
+
+### Book hotel room
+
+POST http://localhost:8080/rooms/100/book
+Content-Type: application/json
+
+{"startDate":"2022-10-14T12:17:47.720Z", "endDate":"2022-11-14T12:17:47.720Z", "accountID": "8c65a306-eaad-4cd8-8988-c680ad3e4212"}
+
+### Get room availability
+
+GET http://localhost:8080/rooms/100/availability
+Content-Type: application/json
+
+
+### Prepare hotel room for the next customer (Use the bookingId from the previous GET)
+
+POST http://localhost:8080/rooms/100/prepare
+Content-Type: application/json
+
+{"bookingId":"61324b49-fbd3-4b37-b17c-f218ca706d06"}
+
+
+
+### Prepare hotel room for the next customer (Use the bookingId from the previous GET)
+
+GET http://localhost:8080/rooms/cleaningschedule
+Content-Type: application/json
+

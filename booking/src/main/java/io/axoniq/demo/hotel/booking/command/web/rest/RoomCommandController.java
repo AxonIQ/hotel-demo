@@ -78,25 +78,25 @@ public class RoomCommandController {
                    .then(Mono.just(roomRequestData.getRoomNumber()));
     }
 
-    @PostMapping(path = "/rooms/{roomNumber}/booked")
+    @PostMapping(path = "/rooms/{roomNumber}/book")
     public Mono<Integer> bookRoom(@PathVariable Integer roomNumber, @RequestBody RoomBookingData roomBookingData) {
         return Mono.when(subscribeToRoomForAccount(roomNumber, roomBookingData.getAccountID()))
                    .and(reactorCommandGateway.send(new BookRoomCommand(roomNumber, new RoomBooking(roomBookingData.getStartDate(), roomBookingData.getEndDate(), roomBookingData.getAccountID()))))
                    .then(Mono.just(roomNumber));
     }
 
-    @PostMapping(path = "/rooms/{roomNumber}/prepared")
+    @PostMapping(path = "/rooms/{roomNumber}/prepare")
     public Mono<Integer> markRoomAsPrepared(@PathVariable Integer roomNumber,
                                             @RequestBody RoomBookingIdData roomBookingId) {
         return reactorCommandGateway.send(new MarkRoomAsPreparedCommand(roomNumber, roomBookingId.getBookingId()));
     }
 
-    @PostMapping(path = "/rooms/{roomNumber}/checkedin")
+    @PostMapping(path = "/rooms/{roomNumber}/check-in")
     public Mono<Integer> checkInRoom(@PathVariable Integer roomNumber, @RequestBody RoomBookingIdData roomBookingId) {
         return reactorCommandGateway.send(new CheckInCommand(roomNumber, roomBookingId.getBookingId()));
     }
 
-    @PostMapping(path = "/rooms/{roomNumber}/checkedout")
+    @PostMapping(path = "/rooms/{roomNumber}/check-out")
     public Mono<Integer> checkOutRoom(@PathVariable Integer roomNumber, @RequestBody RoomBookingIdData roomBookingId) {
         return Mono.when(subscribeToRoomUpdates(roomNumber))
                    .and(reactorCommandGateway.send(new CheckOutCommand(roomNumber, roomBookingId.getBookingId())))
