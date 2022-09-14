@@ -17,11 +17,12 @@ Make sure you have the following tools available:
 - Java 8+ installed
 - Maven 3+ installed
 - JAVA IDE of choice
-- Temporary licence file for Axon Server EE (ask an AxonIQ staff member)
+- Temporary licence file for Axon Server EE (ask an AxonIQ staff member) or an [AxonIQ Cloud](https://console.cloud.axoniq.io/) account.
 
 ### Start Axon Server EE in Docker
 
-First of all, you need to start local instances of AxonServer. Because a context per tenant will be created,  Axon Server EE is needed to do this workshop.
+Because a context per tenant will be created,  Axon Server EE or an AxonIQ Cloud account is needed to do this workshop.
+When using Axon Server EE, you need to start local instances of AxonServer. 
 An Axon Server EE docker compose file is available in `/axonserver-ee` folder.
 
 Steps to start a cluster of 3 nodes:
@@ -46,7 +47,7 @@ The labs need to be executed in the specified order.
 Read the lab description before to start working on that.
 It will provide you some hints about how to achieve the lab goal.
 
-For your convenience, you can use the [command api http file](booking/src/main/resources/command-api.http) or the [query api file](booking/src/main/resources/query-api.http) to simplify the invocation of the endpoint for the specific lab.
+For your convenience, you can use the [command api file](booking/src/main/resources/command-api.http) or the [query api file](booking/src/main/resources/query-api.http) to simplify the invocation of the endpoint for the specific lab.
 If you are not using IntelliJ, you can invoke the endpoints with a tool of choice (postman, curl, ...) of build and use the frontend application.
 
 If you are stuck, you can glance at the next lab code for some inspirations.
@@ -55,7 +56,7 @@ It contains a possible solution of the previous one.
 ### Lab 1 Explore the Hotel booking application
 
 During this workshop we take the hotel demo booking application as an example and make it multi tenant. This means that one application can serve more than one tenant using separate event stores.
-Run the HotelBooking application and use the http files or the frontend to explore the application.
+Run the HotelBooking application and use the api files or the frontend to explore the application.
 
 ### Lab 2 Add multiple contexts
 
@@ -74,7 +75,7 @@ commandGateway.send(new BookRoomCommand(roomNumber, new RoomBooking(roomBookingD
 ```
 The event will inherit the metadata and belong to the booking-hilton context.
 
-Add this correlation id to all the commands in this module.
+Add this correlation id to all the commands in this module and send some commands to test the behavior.
 
 Browse event stores to see the events in separate contexts.
 
