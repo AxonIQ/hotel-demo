@@ -46,7 +46,7 @@ The labs need to be executed in the specified order.
 Read the lab description before to start working on that.
 It will provide you some hints about how to achieve the lab goal.
 
-For your convenience, you can use the [command api http file]{booking/src/main/resources/command-api.http} or the [query api file]{booking/src/main/resources/query-api.http} to simplify the invocation of the endpoint for the specific lab.
+For your convenience, you can use the [command api http file](booking/src/main/resources/command-api.http) or the [query api file](booking/src/main/resources/query-api.http) to simplify the invocation of the endpoint for the specific lab.
 If you are not using IntelliJ, you can invoke the endpoints with a tool of choice (postman, curl, ...) of build and use the frontend application.
 
 If you are stuck, you can glance at the next lab code for some inspirations.
@@ -55,7 +55,7 @@ It contains a possible solution of the previous one.
 ### Lab 1 Explore the Hotel booking application
 
 During this workshop we take the hotel demo booking application as an example and make it multi tenant. This means that one application can serve more than one tenant using separate event stores.
-Run the HotelBooking application and use the [http request file](hotel-booking.http) to explore the application.
+Run the HotelBooking application and use the http files or the frontend to explore the application.
 
 ### Lab 2 Add multiple contexts
 
