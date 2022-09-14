@@ -21,10 +21,14 @@ import io.axoniq.demo.hotel.booking.query.api.FindAccount;
 import io.axoniq.demo.hotel.booking.query.api.FindAccounts;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.lang.invoke.MethodHandles;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +36,8 @@ import java.util.stream.Collectors;
 @Component
 @ProcessingGroup("account")
 class AccountHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final AccountEntityRepository accountEntityRepository;
     private final QueryUpdateEmitter queryUpdateEmitter;
@@ -68,5 +74,11 @@ class AccountHandler {
     @QueryHandler
     List<AccountResponseData> handle(FindAccounts query) {
         return accountEntityRepository.findAll().stream().map(this::convert).collect(Collectors.toList());
+    }
+
+    @ResetHandler public void onReset(){
+        logger.info("Resetting account entity repository");
+        logger.info("Removing {} records", this.accountEntityRepository.count());
+        accountEntityRepository.deleteAllInBatch();
     }
 }

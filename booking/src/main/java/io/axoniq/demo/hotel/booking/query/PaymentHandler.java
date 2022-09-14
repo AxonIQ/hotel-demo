@@ -24,16 +24,21 @@ import io.axoniq.demo.hotel.booking.query.api.PaymentResponseData;
 import io.axoniq.demo.hotel.booking.query.api.PaymentStatus;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 @ProcessingGroup("payment")
 class PaymentHandler {
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final PaymentEntityRepository paymentEntityRepository;
     private final QueryUpdateEmitter queryUpdateEmitter;
@@ -99,5 +104,12 @@ class PaymentHandler {
     @QueryHandler
     List<PaymentResponseData> handle(FindPaymentsForAccount query) {
         return paymentEntityRepository.findByAccountId(query.getAccountId()).stream().map(this::convert).collect(Collectors.toList());
+    }
+
+    @ResetHandler
+    public void onReset(){
+        logger.info("Resetting payment repository");
+        logger.info("Removing {} records", this.paymentEntityRepository.count());
+        paymentEntityRepository.deleteAllInBatch();
     }
 }

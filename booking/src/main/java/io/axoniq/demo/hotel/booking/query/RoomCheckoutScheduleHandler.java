@@ -23,10 +23,14 @@ import io.axoniq.demo.hotel.booking.query.api.RoomCheckoutScheduleData;
 import io.axoniq.demo.hotel.booking.query.api.RoomStatus;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +39,8 @@ import java.util.stream.Collectors;
 @Component
 @ProcessingGroup("room-checkout")
 class RoomCheckoutScheduleHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final RoomCheckoutScheduleRepository roomCheckoutScheduleRepository;
     private final QueryUpdateEmitter queryUpdateEmitter;
@@ -81,5 +87,11 @@ class RoomCheckoutScheduleHandler {
     @QueryHandler
     List<RoomCheckoutScheduleData> handle(FindAllRoomCheckoutSchedules query) {
         return this.roomCheckoutScheduleRepository.findAll().stream().filter(roomCheckoutScheduleEntity -> roomCheckoutScheduleEntity.getRoomStatus()==RoomStatus.TAKEN).map(this::convert).collect(Collectors.toList());
+    }
+    @ResetHandler
+    public void onReset(){
+        logger.info("Resetting room checkout repository");
+        logger.info("Removing {} records", this.roomCheckoutScheduleRepository.count());
+        roomCheckoutScheduleRepository.deleteAllInBatch();
     }
 }

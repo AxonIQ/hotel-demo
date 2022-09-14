@@ -100,6 +100,13 @@ public class AxonConfig {
 
 ```
 
+### Lab 5 Reset projections
+
+
+Each tenant has its own event processing group which makes it possible to reset a single tenant. The name of the event processor consists of the processor group name and the tenant name divided by `@`:`processinggroupname@tenantname`
+
+
+
 ## Congratulations
 
 Great job! You completed all the labs!

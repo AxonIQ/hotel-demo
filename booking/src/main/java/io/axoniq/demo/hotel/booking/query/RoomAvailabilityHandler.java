@@ -27,10 +27,14 @@ import io.axoniq.demo.hotel.booking.query.api.RoomAvailabilityResponseData;
 import io.axoniq.demo.hotel.booking.query.api.RoomStatus;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -38,7 +42,7 @@ import java.util.stream.Collectors;
 @Component
 @ProcessingGroup("room-availability")
 class RoomAvailabilityHandler {
-
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private final RoomAvailabilityEntityRepository roomAvailabilityEntityRepository;
     private final QueryUpdateEmitter queryUpdateEmitter;
 
@@ -141,4 +145,11 @@ class RoomAvailabilityHandler {
     RoomAvailabilityResponseData handle(FindRoomAvailability query) {
         return convert(roomAvailabilityEntityRepository.getById(query.getRoomId()), null);
     }
+    @ResetHandler
+    public void onReset(){
+        logger.info("Resetting room availability repository");
+        logger.info("Removing {} records", this.roomAvailabilityEntityRepository.count());
+        roomAvailabilityEntityRepository.deleteAllInBatch();
+    }
+
 }
