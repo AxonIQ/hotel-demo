@@ -99,12 +99,12 @@ public class AxonConfig {
 
 
 ```
+Run the application and see if the correct projections are updated
 
 ### Lab 5 Reset projections
 
-
 Each tenant has its own event processing group which makes it possible to reset a single tenant. The name of the event processor consists of the processor group name and the tenant name divided by `@`:`processinggroupname@tenantname`
-
+Adjust the [DevopsController](booking/src/main/java/io/axoniq/demo/hotel/booking/management/DevOpsController.java) to be able to reset 1 tenant and all tenants.
 
 
 ## Congratulations

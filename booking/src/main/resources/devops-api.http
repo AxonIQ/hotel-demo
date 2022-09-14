@@ -1,0 +1,18 @@
+### Reset account processing group
+POST http://localhost:8080/reset/account
+
+### Reset payment processing group
+POST http://localhost:8080/reset/payment
+
+
+### Reset room-availability processing group
+POST http://localhost:8080/reset/room-availability
+
+
+### Reset room-checkout processing group
+POST http://localhost:8080/reset/room-checkout
+
+
+### Reset room-cleaning processing group
+POST http://localhost:8080/reset/room-cleaning
+
