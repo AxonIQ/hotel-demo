@@ -60,9 +60,11 @@ Run the HotelBooking application and use the api files or the frontend to explor
 
 ### Lab 2 Add multiple contexts
 
-The next step is to configure multi tenancy for the hotel booking application. The application now uses 1 context named `booking`. When making the application multi tenant the context name will be the branch prepended with `booking-` (for instance booking-hilton).
+The next step is to configure multi tenancy for the hotel booking application.
+Add the `multi-tenancy extension` to the `pom.xml`.
+The application now uses 1 context named `booking`. When making the application multi tenant the context name will be the branch prepended with `booking-` (for instance booking-hilton).
 Adding these contexts can be done statically by adding them in AxonServer and adding the context name(s) to the application.properties `axon.axonserver.context` property (this property takes a list). The booking context can be removed.
-Another way is to add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. ***Note*** that you need to remove the `axon.axonserver.context` property.
+Another way is to add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. ***Note*** you need to remove the `axon.axonserver.context` property.
 
 Try to configure the contexts in both ways, in AxonConfig a `TenantConnectPredicate` is already defined you just need to add a correct Predicate.
 
@@ -81,8 +83,22 @@ Browse event stores to see the events in separate contexts.
 
 ### Lab 4 Multi tenant projections
 
-Now that the event stores are separated we also need to separate the projections. 
+Now that the event stores are separated we also need to separate the projections. You can create a datasource per tenant:
 
+```java
+public class AxonConfig {
+    @Bean
+    public Function<TenantDescriptor, DataSourceProperties> tenantDataSourceResolver() {
+        return tenant -> {
+            DataSourceProperties properties = new DataSourceProperties();
+            properties.setUrl("jdbc:h2:mem:axoniq-booking-"+tenant.tenantId());
+            return properties;
+        };
+    }
+}
+
+
+```
 
 ## Congratulations
 
