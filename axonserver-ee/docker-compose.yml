@@ -1,0 +1,159 @@
+version: '3.3'
+services:
+  axonserver-1:
+    image: axoniq/axonserver-enterprise:latest-dev
+    hostname: axonserver-1
+    volumes:
+      - axonserver-data1:/axonserver/data
+      - axonserver-events1:/axonserver/events
+      - axonserver-log1:/axonserver/log
+      - axonserver-plugins1:/axonserver/plugins
+    secrets:
+      - source: axoniq-license
+        target: /axonserver/config/axoniq.license
+      - source: axonserver-properties
+        target: /axonserver/config/axonserver.properties
+      - source: axonserver-token
+        target: /axonserver/config/axonserver.token
+    environment:
+      - AXONIQ_LICENSE=/axonserver/config/axoniq.license
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+      - '8224:8224'
+    networks:
+      - axon-demo
+
+  axonserver-2:
+    image: axoniq/axonserver-enterprise:latest-dev
+    hostname: axonserver-2
+    volumes:
+      - axonserver-data2:/axonserver/data
+      - axonserver-events2:/axonserver/events
+      - axonserver-log2:/axonserver/log
+      - axonserver-plugins2:/axonserver/plugins
+    secrets:
+      - source: axoniq-license
+        target: /axonserver/config/axoniq.license
+      - source: axonserver-properties
+        target: /axonserver/config/axonserver.properties
+      - source: axonserver-token
+        target: /axonserver/config/axonserver.token
+    environment:
+      - AXONIQ_LICENSE=/axonserver/config/axoniq.license
+    ports:
+      - '8025:8024'
+      - '8125:8124'
+      - '8225:8224'
+    networks:
+      - axon-demo
+
+  axonserver-3:
+    image: axoniq/axonserver-enterprise:latest-dev
+    hostname: axonserver-3
+    volumes:
+      - axonserver-data3:/axonserver/data
+      - axonserver-events3:/axonserver/events
+      - axonserver-log3:/axonserver/log
+      - axonserver-plugins3:/axonserver/plugins
+    secrets:
+      - source: axoniq-license
+        target: /axonserver/config/axoniq.license
+      - source: axonserver-properties
+        target: /axonserver/config/axonserver.properties
+      - source: axonserver-token
+        target: /axonserver/config/axonserver.token
+    environment:
+      - AXONIQ_LICENSE=/axonserver/config/axoniq.license
+    ports:
+      - '8026:8024'
+      - '8126:8124'
+      - '8226:8224'
+    networks:
+      - axon-demo
+
+volumes:
+  axonserver-data1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data1
+      o: bind
+  axonserver-events1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/events1
+      o: bind
+  axonserver-log1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/log1
+      o: bind
+  axonserver-plugins1:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/plugins1
+      o: bind
+  axonserver-data2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data2
+      o: bind
+  axonserver-events2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/events2
+      o: bind
+  axonserver-log2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/log2
+      o: bind
+  axonserver-plugins2:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/plugins2
+      o: bind
+  axonserver-data3:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data3
+      o: bind
+  axonserver-events3:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/events3
+      o: bind
+  axonserver-log3:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/log3
+      o: bind
+  axonserver-plugins3:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/plugins3
+      o: bind
+
+networks:
+  axon-demo:
+
+secrets:
+  axonserver-properties:
+    file: ./axonserver.properties
+  axoniq-license:
+    file: ./axoniq.license
+  axonserver-token:
+    file: ./axonserver.token
+
