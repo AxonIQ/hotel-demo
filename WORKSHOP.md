@@ -6,7 +6,7 @@ In this workshop you will learn how to apply parameter resolvers.
 
 ## Why should I use a parameter resolver?
 
-When using message handlers you can get into the situation that you need to do a lot of code duplication. For instance when you need to check if the user is authorized to apply a command. Or, event handlers that update a table, when getting the entity. You can do this check or fetch the entity in a parameter resolver and add it to the signature of any message handling function.
+When using message handlers you can get into the situation that you need to do a lot of code duplication. For instance when you need to check if the user is authorized to apply a command. Or, event handlers that update a table need to get the entity in every function. You can do this check or fetch the entity in a parameter resolver and add it to the signature of any message handling function.
 
 ## Let's start
 Before you start, please make sure you have everything you need.
@@ -42,28 +42,28 @@ The hotel demo project is a project to show the capabilities of Axon Framework a
 A manager can add rooms, see the overall availability, check out, see payments and cleaning schedule. A guest can book a room, check in and pay.
 
 ### Lab 1 Create a parameter resolver
-Run the HotelBooking application and use the [http request file](room-booking.http) or use the frontend to explore the application.
+Run the HotelBooking application and use the [http request file](hotel-booking.http) or use the frontend to explore the application.
 
 Looking at the `RoomAvailabilityHandler`  you can see that the `RoomAvailabilityEntityRepository` is defined. Everytime this repository is updated the entity is fetched by calling `roomAvailabilityEntityRepository.getById(event.getRoomNumber())`. 
 The goal of this workshop is to create a parameter resolver that fetches this entity beforehand by using a parameter resolver.
 
 Add a component that `implements ParameterResolver<RoomAvailabilityEntity>, ParameterResolverFactory`. **(tip)** You need to Autowire the constructor of the component to make it being picked up by Spring.
-- Implement the `public boolean matches(Message<?> message)` method, matching event messages.
-- Implement the `public ParameterResolver createInstance(Executable executable, Parameter[] parameters, int i)` method to create an instance when the `RoomAvailabilityEntity` is a parameter in the method signature.
-- Implement the `public RoomAvailabilityEntity resolveParameterValue(Message message)` method that checks if the message matches (the first function that was implemented) and returns the`getById()` for the roomId of that message.
+- Implement the `public boolean matches(Message<?> message)` method,  to return true when the type of the message matches the type of the event(s) that are handled in the event handlers where the resolver should be added.
+- Implement the `public ParameterResolver createInstance(Executable executable, Parameter[] parameters, int i)` method to return this instance of the parameter resolver whenever the `RoomAvailabilityEntity` is a parameter in the method signature.
+- Implement the `public RoomAvailabilityEntity resolveParameterValue(Message message)` method to check if the message matches (the first method that was implemented) and returns the`getById()` for the roomId of that message.
 
 
 ### Lab 2 Use the parameter resolver
 
 The next step is to configure the parameter resolver for the hotel booking application. 
 In the `RoomAvailabilityHandler` remove all the spots where the parameter resolver can do its job and add the `RoomAvailabilityEntity` to the method signature instead.
-Run the HotelBooking application and test your changes using the [http request file](room-booking.http) or the frontend.
+Run the HotelBooking application and test your changes using the [http request file](hotel-booking.http) or the frontend.
 
 ### Lab 3 Implement your own parameter resolver
 
 Now you can experiment on your own. You can also resolve the `RoomAvailabilityEntity` in the QueryHandlers in the `RoomAvailabilityHandler` and/or implement a parameter resolver on the command side.
 
-Run the HotelBooking application and test your changes using the [http request file](room-booking.http) or the frontend.
+Run the HotelBooking application and test your changes using the [http request file](hotel-booking.http) or the frontend.
 
 
 ## Congratulations
