@@ -47,7 +47,7 @@ Run the HotelBooking application and use the [http request file](hotel-booking.h
 Looking at the `RoomAvailabilityHandler`  you can see that the `RoomAvailabilityEntityRepository` is defined. Everytime this repository is updated the entity is fetched by calling `roomAvailabilityEntityRepository.getById(event.getRoomNumber())`. 
 The goal of this workshop is to create a parameter resolver that fetches this entity beforehand by using a parameter resolver.
 
-Add a component that `implements ParameterResolver<RoomAvailabilityEntity>, ParameterResolverFactory`. **(tip)** You need to Autowire the constructor of the component to make it being picked up by Spring.
+Add a component that `implements ParameterResolver<RoomAvailabilityEntity>, ParameterResolverFactory`. By annotating it with `@Component` the configuration will automatically pick it up and register it.
 - Implement the `public boolean matches(Message<?> message)` method,  to return true when the type of the message matches the type of the event(s) that are handled in the event handlers where the resolver should be added.
 - Implement the `public ParameterResolver createInstance(Executable executable, Parameter[] parameters, int i)` method to return this instance of the parameter resolver whenever the `RoomAvailabilityEntity` is a parameter in the method signature.
 - Implement the `public RoomAvailabilityEntity resolveParameterValue(Message message)` method to check if the message matches (the first method that was implemented) and returns the`getById()` for the roomId of that message.
