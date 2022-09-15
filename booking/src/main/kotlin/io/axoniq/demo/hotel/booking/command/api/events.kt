@@ -22,13 +22,15 @@ import java.util.*
 // Account
 data class AccountRegisteredEvent(val accountId: UUID, val userName: String, val password: String)
 // Room
-abstract class RoomEvent(open val roomNumber: Int)
-data class RoomAddedEvent(override val roomNumber: Int, val roomDescription: String) :RoomEvent(roomNumber)
-data class RoomBookedEvent(override val roomNumber: Int, val roomBooking: RoomBooking):RoomEvent(roomNumber)
-data class RoomBookingRejectedEvent(override val roomNumber: Int, val roomBooking: RoomBooking, val reason: String):RoomEvent(roomNumber)
-data class RoomPreparedEvent(override val roomNumber: Int, val roomBooking: RoomBooking):RoomEvent(roomNumber)
-data class RoomCheckedInEvent(override val roomNumber: Int, val roomBookingId: UUID):RoomEvent(roomNumber)
-data class RoomCheckedOutEvent(override val roomNumber: Int, val roomBookingId: UUID):RoomEvent(roomNumber)
+interface RoomEvent {
+    val roomNumber: Int
+}
+data class RoomAddedEvent(override val roomNumber: Int, val roomDescription: String) :RoomEvent
+data class RoomBookedEvent(override val roomNumber: Int, val roomBooking: RoomBooking):RoomEvent
+data class RoomBookingRejectedEvent(override val roomNumber: Int, val roomBooking: RoomBooking, val reason: String):RoomEvent
+data class RoomPreparedEvent(override val roomNumber: Int, val roomBooking: RoomBooking):RoomEvent
+data class RoomCheckedInEvent(override val roomNumber: Int, val roomBookingId: UUID):RoomEvent
+data class RoomCheckedOutEvent(override val roomNumber: Int, val roomBookingId: UUID):RoomEvent
 // Payment
 data class PaymentRequestedEvent(val paymentId: UUID, val accountId: UUID, val totalAmount: BigDecimal)
 data class PaymentSucceededEvent(val paymentId: UUID)
