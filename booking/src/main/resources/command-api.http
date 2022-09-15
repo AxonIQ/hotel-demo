@@ -1,0 +1,47 @@
+### Create an account
+//accountId: 02391dc2-5ab1-4808-88e4-489b20ec6b03
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+{ "userName" : "x", "password" : "y" }
+
+### Pay request
+//paymentId: cbe4ce7c-fdcb-4c38-bdf0-f8b04f39e538
+POST http://localhost:8080/payments
+Content-Type: application/json
+
+{ "accountId" : "02391dc2-5ab1-4808-88e4-489b20ec6b03", "totalAmount" : "123.45" }
+
+### Payment processed
+POST http://localhost:8080/payments/cbe4ce7c-fdcb-4c38-bdf0-f8b04f39e538/processed
+
+### Add room
+//roomNumber: 13
+POST http://localhost:8080/rooms
+Content-Type: application/json
+
+{ "roomNumber" : 13, "description" : "might give bad luck" }
+
+### Book a room
+POST http://localhost:8080/rooms/13/booked
+Content-Type: application/json
+
+{ "startDate": 1663677492, "endDate": 1664109492, "accountID": "02391dc2-5ab1-4808-88e4-489b20ec6b03"}
+
+### Prepare a room
+POST http://localhost:8080/rooms/13/prepared
+Content-Type: application/json
+
+{ "bookingId": "92205204-3205-4ed9-81f1-7f9c0f80fed2"}
+
+### Check in of a room
+POST http://localhost:8080/rooms/13/checkedin
+Content-Type: application/json
+
+{ "bookingId": "92205204-3205-4ed9-81f1-7f9c0f80fed2"}
+
+### Check out of a room
+POST http://localhost:8080/rooms/13/checkedout
+Content-Type: application/json
+
+{ "bookingId": "92205204-3205-4ed9-81f1-7f9c0f80fed2"}

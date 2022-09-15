@@ -1,0 +1,28 @@
+### Get all accounts
+GET http://localhost:8080/accounts
+
+### Get an account by accountId
+GET http://localhost:8080/accounts/02391dc2-5ab1-4808-88e4-489b20ec6b03
+
+### Get all payments
+GET http://localhost:8080/payments
+
+### Get a payment by paymentId
+GET http://localhost:8080/payments/cbe4ce7c-fdcb-4c38-bdf0-f8b04f39e538
+
+### Get all payments for a certain accountId
+GET http://localhost:8080/payments/account/02391dc2-5ab1-4808-88e4-489b20ec6b03
+
+### Get availability of a certain room
+GET http://localhost:8080/rooms/13/availability
+
+### Get availability of a certain room for a certain account
+GET http://localhost:8080/rooms/13/account/02391dc2-5ab1-4808-88e4-489b20ec6b03/availability
+
+### Get the cleaning schedule
+GET http://localhost:8080/rooms/cleaningschedule
+
+### Get the chechout schedule
+GET http://localhost:8080/rooms/cleaningschedule
+
+

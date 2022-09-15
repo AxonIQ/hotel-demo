@@ -71,7 +71,7 @@ class RoomAvailabilityHandler {
 
     @EventHandler
     void on(RoomBookedEvent event) {
-        RoomAvailabilityEntity entity = this.roomAvailabilityEntityRepository.getOne(event.getRoomNumber());
+        RoomAvailabilityEntity entity = this.roomAvailabilityEntityRepository.getById(event.getRoomNumber());
         entity.setRoomStatus(RoomStatus.BOOKED);
         entity.getBookings().add(new BookingEmbeddable(event.getRoomBooking().getBookingId().toString(),
                                                        event.getRoomBooking().getStartDate(),
@@ -92,7 +92,7 @@ class RoomAvailabilityHandler {
 
     @EventHandler
     void on(RoomBookingRejectedEvent event) {
-        RoomAvailabilityEntity entity = this.roomAvailabilityEntityRepository.getOne(event.getRoomNumber());
+        RoomAvailabilityEntity entity = this.roomAvailabilityEntityRepository.getById(event.getRoomNumber());
         entity.getFailedBookings().add(new FailedBookingEmbeddable(
                 event.getRoomBooking().getBookingId().toString(),
                 event.getRoomBooking().getStartDate(),
@@ -114,7 +114,7 @@ class RoomAvailabilityHandler {
 
     @EventHandler
     void on(RoomCheckedOutEvent event) {
-        RoomAvailabilityEntity entity = this.roomAvailabilityEntityRepository.getOne(event.getRoomNumber());
+        RoomAvailabilityEntity entity = this.roomAvailabilityEntityRepository.getById(event.getRoomNumber());
         UUID accountId = entity.getBookings().stream().filter(it -> it.getId().equals(event.getRoomBookingId().toString())).map(it -> UUID.fromString(it.getAccountId())).findAny().orElseThrow();
 
         entity.setBookings(entity.getBookings().stream().filter(it -> !it.getId().equals(event.getRoomBookingId().toString())).collect(Collectors.toList()));
@@ -134,11 +134,11 @@ class RoomAvailabilityHandler {
 
     @QueryHandler
     RoomAvailabilityResponseData handle(FindRoomAvailabilityForAccount query) {
-        return convert(roomAvailabilityEntityRepository.getOne(query.getRoomId()), query.getAccountId());
+        return convert(roomAvailabilityEntityRepository.getById(query.getRoomId()), query.getAccountId());
     }
 
     @QueryHandler
     RoomAvailabilityResponseData handle(FindRoomAvailability query) {
-        return convert(roomAvailabilityEntityRepository.getOne(query.getRoomId()), null);
+        return convert(roomAvailabilityEntityRepository.getById(query.getRoomId()), null);
     }
 }

@@ -18,7 +18,7 @@ package io.axoniq.demo.hotel.booking.command.config;
 import org.axonframework.axonserver.connector.TargetContextResolver;
 import org.axonframework.axonserver.connector.event.axon.AxonServerEventStore;
 import org.axonframework.config.EventProcessingConfigurer;
-import org.axonframework.eventsourcing.MultiStreamableMessageSource;
+import org.axonframework.eventhandling.MultiStreamableMessageSource;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

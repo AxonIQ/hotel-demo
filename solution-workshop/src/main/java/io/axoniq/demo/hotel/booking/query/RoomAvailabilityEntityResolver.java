@@ -19,8 +19,6 @@ public class RoomAvailabilityEntityResolver implements ParameterResolver<RoomAva
 
     private final RoomAvailabilityEntityRepository roomAvailabilityEntityRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
     @Autowired
     public RoomAvailabilityEntityResolver(RoomAvailabilityEntityRepository roomAvailabilityEntityRepository) {
         this.roomAvailabilityEntityRepository = roomAvailabilityEntityRepository;
