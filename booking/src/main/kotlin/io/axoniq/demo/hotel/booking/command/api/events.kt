@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2020-2020. AxonIQ
  *
@@ -21,12 +22,13 @@ import java.util.*
 // Account
 data class AccountRegisteredEvent(val accountId: UUID, val userName: String, val password: String)
 // Room
-data class RoomAddedEvent(val roomNumber: Int, val roomDescription: String)
-data class RoomBookedEvent(val roomNumber: Int, val roomBooking: RoomBooking)
-data class RoomBookingRejectedEvent(val roomNumber: Int, val roomBooking: RoomBooking, val reason: String)
-data class RoomPreparedEvent(val roomNumber: Int, val roomBooking: RoomBooking)
-data class RoomCheckedInEvent(val roomNumber: Int, val roomBookingId: UUID)
-data class RoomCheckedOutEvent(val roomNumber: Int, val roomBookingId: UUID)
+abstract class RoomEvent(open val roomNumber: Int)
+data class RoomAddedEvent(override val roomNumber: Int, val roomDescription: String) :RoomEvent(roomNumber)
+data class RoomBookedEvent(override val roomNumber: Int, val roomBooking: RoomBooking):RoomEvent(roomNumber)
+data class RoomBookingRejectedEvent(override val roomNumber: Int, val roomBooking: RoomBooking, val reason: String):RoomEvent(roomNumber)
+data class RoomPreparedEvent(override val roomNumber: Int, val roomBooking: RoomBooking):RoomEvent(roomNumber)
+data class RoomCheckedInEvent(override val roomNumber: Int, val roomBookingId: UUID):RoomEvent(roomNumber)
+data class RoomCheckedOutEvent(override val roomNumber: Int, val roomBookingId: UUID):RoomEvent(roomNumber)
 // Payment
 data class PaymentRequestedEvent(val paymentId: UUID, val accountId: UUID, val totalAmount: BigDecimal)
 data class PaymentSucceededEvent(val paymentId: UUID)
