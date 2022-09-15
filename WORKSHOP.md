@@ -1,6 +1,6 @@
 # Parameter resolver workshop
 
-Welcome to the parameter resolver workshop
+Welcome to the parameter resolver workshop!
 
 In this workshop you will learn how to apply parameter resolvers.
 
