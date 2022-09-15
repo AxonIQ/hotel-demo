@@ -6,7 +6,7 @@ In this workshop you will learn how to apply parameter resolvers.
 
 ## Why should I use a parameter resolver?
 
-When using message handlers you can get into the situation that you need to do a lot of code duplication. For instance when you need to check if the user is authorized to apply a command. Or, event handlers that update a table need to get the entity in every function. You can do this check or fetch the entity in a parameter resolver and add it to the signature of any message handling function.
+When using message handlers, you can get into a situation where you need to duplicate a lot of code. For instance, you need to check if the user is authorized to apply a command. Or, event handlers that update a table need to get the entity in every function. You can do this check or fetch the entity in a parameter resolver and add it to the signature of any message handling function.
 
 ## Let's start
 Before you start, please make sure you have everything you need.
