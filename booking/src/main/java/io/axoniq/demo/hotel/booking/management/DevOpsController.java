@@ -34,6 +34,7 @@ public class DevOpsController {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private final Configuration configuration;
 
+
     public DevOpsController(Configuration configuration) {
         this.configuration = configuration;
     }
@@ -54,5 +55,4 @@ public class DevOpsController {
                          }
                      });
     }
-}
 }

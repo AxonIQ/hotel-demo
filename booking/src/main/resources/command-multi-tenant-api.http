@@ -1,0 +1,30 @@
+### Add room
+//roomNumber: 13
+POST http://localhost:8080/rooms
+Content-Type: application/json
+
+{ "roomNumber" : 13, "description" : "might give bad luck" }
+
+### Book a room
+POST http://localhost:8080/rooms/13/book
+Content-Type: application/json
+
+{ "startDate": 1663677492, "endDate": 1664109492, "accountID": "02391dc2-5ab1-4808-88e4-489b20ec6b03"}
+
+### Prepare a room
+POST http://localhost:8080/rooms/13/prepare
+Content-Type: application/json
+
+{ "bookingId": "92205204-3205-4ed9-81f1-7f9c0f80fed2"}
+
+### Check in of a room
+POST http://localhost:8080/rooms/13/check-in
+Content-Type: application/json
+
+{ "bookingId": "92205204-3205-4ed9-81f1-7f9c0f80fed2"}
+
+### Check out of a room
+POST http://localhost:8080/rooms/13/check-out
+Content-Type: application/json
+
+{ "bookingId": "92205204-3205-4ed9-81f1-7f9c0f80fed2"}

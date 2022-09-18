@@ -66,14 +66,15 @@ The application now uses 1 context named `booking`. When making the application 
 Adding these contexts can be done statically by adding them in AxonServer and adding the context name(s) to the application.properties `axon.axonserver.context` property (this property takes a list). The booking context can be removed.
 Another way is to add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. ***Note*** you need to remove the `axon.axonserver.context` property.
 
-Try to configure the contexts in both ways, in AxonConfig a `TenantConnectPredicate` is already defined you just need to add a correct Predicate.
+Try to configure the contexts in both ways, in `MultiTenancyConfig` a `TenantConnectPredicate` is already defined you just need to add a correct Predicate.
 
 ### Lab 3 Route messages to specific tenants
 
+We prepared `RoomCommandMultiTenantController` for so,  you can easily add multi tenancy behavior.
 To route messages to the correct tenant they should be enriched with a tenant specific correlation id. The attribute name is in the TenantConfiguration.TENANT_CORRELATION_KEY.
 All you need to do is add it to the MetaData of the **initial** message like this:
 ```
-commandGateway.send(new BookRoomCommand(roomNumber, new RoomBooking(roomBookingData.getStartDate(), roomBookingData.getEndDate(), roomBookingData.getAccountID())), MetaData.with(TenantConfiguration.TENANT_CORRELATION_KEY, "booking-hilton"));
+commandGateway.send(new BookRoomCommand(roomNumber, new RoomBooking(roomBookingData.getStartDate(), roomBookingData.getEndDate(), roomBookingData.getAccountID())), MetaData.with(TenantConfiguration.TENANT_CORRELATION_KEY, tenantId));
 ```
 The event will inherit the metadata and belong to the booking-hilton context.
 
