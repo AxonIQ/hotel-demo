@@ -63,11 +63,11 @@ Run the HotelBooking application and use the api files or the frontend to explor
 The next step is to configure multi tenancy for the hotel booking application.
 Add the `multi-tenancy extension` to the `pom.xml`.
 The application now uses 1 context. When making the application multi tenant the context name will be the branch of the hotel prepended with `booking-` (for instance booking-hilton).
-Go to the AxonServer dashboard and create a contexts with a name `booking-hilton` also add an application and save the token in the application.properties (in `axon.axonserver.token`) . ***Important note *** this application should have `USE_CONTEXT` rights for the `booking-hilton` context and `VIEW_CONFIGURATION` rights for the _admin context.
-Add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. ***Note*** you should not have the `axon.axonserver.context` configured property if you choose this option.
+Go to the AxonServer dashboard and create a contexts with a name `booking-hilton` also add an application and save the token in the application.properties (in `axon.axonserver.token`) . ***Important note*** this application should have `USE_CONTEXT` rights for the `booking-hilton` context and `VIEW_CONFIGURATION` rights for the _admin context.
+Add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. You should not have the `axon.axonserver.context` configured property if you choose this option.
 You can configure this in `MultiTenancyConfig`. You can see a `TenantConnectPredicate` is already defined you just need to add a correct Predicate.
 
-Also create another context e.g. `booking-sheraton`, update the existing application to use this context, after a restart of the app you can see that the app automatically connects to the correct contexts. 
+Create another context e.g. `booking-sheraton`, update the existing application to use this context, after a restart of the app you can see that the app automatically connects to the correct contexts. 
 
 ### Lab 3 Route messages to specific tenants
 
