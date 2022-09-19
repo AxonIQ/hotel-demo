@@ -47,7 +47,7 @@ The labs need to be executed in the specified order.
 Read the lab description before to start working on that.
 It will provide you some hints about how to achieve the lab goal.
 
-For your convenience, you can use the [command api file](booking/src/main/resources/command-api.http) or the [query api file](booking/src/main/resources/query-api.http) to simplify the invocation of the endpoint for the specific lab.
+For your convenience, you can use the [command api file](booking/src/main/resources/command-multi-tenant-api.http) to simplify the invocation of the endpoint for the specific lab.
 If you are not using IntelliJ, you can invoke the endpoints with a tool of choice (postman, curl, ...) of build and use the frontend application.
 
 If you are stuck, you can glance at the next lab code for some inspirations.
@@ -62,23 +62,20 @@ Run the HotelBooking application and use the api files or the frontend to explor
 
 The next step is to configure multi tenancy for the hotel booking application.
 Add the `multi-tenancy extension` to the `pom.xml`.
-The application now uses 1 context named `booking`. When making the application multi tenant the context name will be the branch prepended with `booking-` (for instance booking-hilton).
-Adding these contexts can be done statically by adding them in AxonServer and adding the context name(s) to the application.properties `axon.axonserver.context` property (this property takes a list). The booking context can be removed.
-Another way is to add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. ***Note*** you need to remove the `axon.axonserver.context` property.
+The application now uses 1 context. When making the application multi tenant the context name will be the branch of the hotel prepended with `booking-` (for instance booking-hilton).
+Go to the AxonServer dashboard and create a contexts with a name `booking-hilton` also add the application and save the token in the application.properties (in `axon.axonserver.token`) 
+Another way is to add new contexts dynamically (during runtime) by adding a `TenantConnectPredicate` as a bean. ***Note*** you should not have the `axon.axonserver.context` configured property if you choose this option.
 
-Try to configure the contexts in both ways, in `MultiTenancyConfig` a `TenantConnectPredicate` is already defined you just need to add a correct Predicate.
+You can configure the application to connect automatically to any context that starts with `booking-` in `MultiTenancyConfig`. You can see a `TenantConnectPredicate` is already defined you just need to add a correct Predicate.
+
+Also create another context and application named `booking-sheraton` and you can see that the app automatically connects to the correct context. 
 
 ### Lab 3 Route messages to specific tenants
 
 We prepared `RoomCommandMultiTenantController` for so,  you can easily add multi tenancy behavior.
-To route messages to the correct tenant they should be enriched with a tenant specific correlation id. The attribute name is in the TenantConfiguration.TENANT_CORRELATION_KEY.
-All you need to do is add it to the MetaData of the **initial** message like this:
-```
-commandGateway.send(new BookRoomCommand(roomNumber, new RoomBooking(roomBookingData.getStartDate(), roomBookingData.getEndDate(), roomBookingData.getAccountID())), MetaData.with(TenantConfiguration.TENANT_CORRELATION_KEY, tenantId));
-```
+To route messages to the correct tenant the metadata should contain with a tenant specific correlation id. The attribute name is in the TenantConfiguration.TENANT_CORRELATION_KEY.
+Add this correlation id to all the commands in this controller and send some commands to test the behavior.
 The event will inherit the metadata and belong to the booking-hilton context.
-
-Add this correlation id to all the commands in this module and send some commands to test the behavior.
 
 Browse event stores to see the events in separate contexts.
 
