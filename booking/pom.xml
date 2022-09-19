@@ -35,6 +35,14 @@
         <start-class>io.axoniq.demo.hotel.booking.HotelBookingApplication</start-class>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.axonframework.extensions.multitenancy</groupId>
+            <artifactId>multitenancy-spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+
+
     <build>
         <plugins>
             <plugin>

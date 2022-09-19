@@ -1,3 +1,5 @@
+Multi tenancy workshop branch for AxonIQ Con 2022, might not get updates, see [workshop](WORKSHOP.md)
+
 # AxonIQ hotel demo
 
 It's the implementation of the example used in this blog post: [https://eventmodeling.org/posts/what-is-event-modeling/](https://eventmodeling.org/posts/what-is-event-modeling)
