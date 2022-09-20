@@ -16,3 +16,8 @@ POST http://localhost:8080/reset/room-checkout
 ### Reset room-cleaning processing group
 POST http://localhost:8080/reset/room-cleaning
 
+### Reset all processing groups
+POST http://localhost:8080/reset/
+
+### Create tenant and DB
+POST http://localhost:8080/admin/create-tenant?tenantName=booking-tenant&replicationGroup=default&initializeSchema=true

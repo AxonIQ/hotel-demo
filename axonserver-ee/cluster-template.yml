@@ -1,0 +1,39 @@
+axoniq:
+  axonserver:
+    cluster-template:
+      users:
+      - password: 'admin'
+        userName: admin
+        roles:
+        - roles:
+          - ADMIN
+          context: _admin
+      applications:
+      replicationGroups:
+      - roles:
+        - node: axonserver-2
+          role: PRIMARY
+        - node: axonserver-1
+          role: PRIMARY
+        - node: axonserver-3
+          role: PRIMARY
+        name: default
+        contexts:
+        - name: default
+          metaData:
+            event.index-format: JUMP_SKIP_INDEX
+            snapshot.index-format: JUMP_SKIP_INDEX
+      - roles:
+        - node: axonserver-3
+          role: PRIMARY
+        - node: axonserver-2
+          role: PRIMARY
+        - node: axonserver-1
+          role: PRIMARY
+        name: _admin
+        contexts:
+        - name: _admin
+          metaData:
+            event.index-format: JUMP_SKIP_INDEX
+            snapshot.index-format: JUMP_SKIP_INDEX
+      first: axonserver-2:8224

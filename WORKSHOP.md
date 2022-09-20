@@ -28,9 +28,8 @@ An Axon Server EE docker compose file is available in `/axonserver-ee` folder.
 Steps to start a cluster of 3 nodes:
 
 * Add the license file to axonserver-ee folder
-* Run the create-secrets script (to secure the cluster and generate an admin password)
 * Start Docker with `docker compose up` and wait for the cluster to be up
-* Run the create-admin script to create the admin user
+* Use `admin` user with `admin` password
 
 Now, you should be able to check the dashboard by visiting: `http://localhost:8024` when logged with admin user, the generated password can be found in the axonserver-ee folder in the `admin.password` file. In the overview page you should see a cluster of 3 nodes.
 
@@ -80,23 +79,27 @@ Browse event stores to see the events in separate contexts.
 
 ### Lab 4 Multi tenant projections
 
-Now that the event stores are separated we also need to separate the projections. You can create a datasource per tenant:
+Now that the event stores are separated we also may want to separate the projections and token stores per tenant.
+You can define H2 datasource per tenant:
 
 ```java
-public class AxonConfig {
     @Bean
     public Function<TenantDescriptor, DataSourceProperties> tenantDataSourceResolver() {
         return tenant -> {
             DataSourceProperties properties = new DataSourceProperties();
-            properties.setUrl("jdbc:h2:mem:axoniq-booking-"+tenant.tenantId());
+            properties.setUrl("jdbc:h2:mem:"+tenant.tenantId());
+            properties.setDriverClassName("org.h2.Driver");
+            properties.setUsername("sa");
             return properties;
         };
     }
-}
-
-
 ```
-Run the application and see if the correct projections are updated
+
+Run the application and see if the correct projections are updated.
+
+Use [H2 console](http://localhost:8082/) to verify that projections are separated.
+
+Check out how [http://localhost:8080/admin/create-tenant](http://localhost:8080/admin/create-tenant) can help you.
 
 ### Lab 5 Reset projections
 
