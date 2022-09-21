@@ -28,8 +28,12 @@ import io.axoniq.demo.hotel.booking.command.api.RoomCheckedInEvent;
 import io.axoniq.demo.hotel.booking.command.api.RoomCheckedOutEvent;
 import io.axoniq.demo.hotel.booking.command.api.RoomPreparedEvent;
 import io.axoniq.demo.hotel.booking.command.api.RoomStatus;
+import io.axoniq.demo.hotel.promo.FailureReason;
+import io.axoniq.demo.hotel.promo.PromoBookingFailed;
+import io.axoniq.demo.hotel.promo.PromoBookingSucceeded;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateMember;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -37,7 +41,9 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import static java.util.Objects.isNull;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate(snapshotTriggerDefinition = "roomSnapshotTriggerDefinition", cache = "cache")
@@ -61,13 +67,24 @@ class Room {
 
     //TODO Check Account invariant !!!!
     @CommandHandler
-    void handle(BookRoomCommand command) {
+    void handle(BookRoomCommand command, @MetaDataValue("promobookingid") UUID promoBookingId) {
         if (isBookingAllowed(command.getRoomBooking())) {
             apply(new RoomBookedEvent(command.getRoomNumber(), command.getRoomBooking()));
+            if (! isNull(promoBookingId)){
+                apply(new PromoBookingSucceeded(command.getRoomNumber(),
+                                                command.getRoomBooking().getStartDate(),
+                                                command.getRoomBooking().getEndDate(),
+                                                command.getRoomBooking().getBookingId(),
+                                                promoBookingId));
+            }
         } else {
             apply(new RoomBookingRejectedEvent(command.getRoomNumber(),
                                                command.getRoomBooking(),
                                                String.format(ROOM_IS_NOT_AVAILABLE, roomNumber)));
+            if (! isNull(promoBookingId)){
+                apply(new PromoBookingFailed(FailureReason.NO_ROOMS_AVAILABLE,
+                                             promoBookingId));
+            }
         }
     }
 
