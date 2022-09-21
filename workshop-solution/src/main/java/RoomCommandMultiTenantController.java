@@ -44,7 +44,7 @@ public class RoomCommandMultiTenantController {
 
     private final CommandGateway commandGateway;
 
-    public RoomCommandMultiTenantController(CommandGateway commandGateway, QueryGateway queryGateway) {
+    public RoomCommandMultiTenantController(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
     }
 

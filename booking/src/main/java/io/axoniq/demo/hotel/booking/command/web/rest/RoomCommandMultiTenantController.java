@@ -25,7 +25,6 @@ import io.axoniq.demo.hotel.booking.command.web.api.RoomBookingData;
 import io.axoniq.demo.hotel.booking.command.web.api.RoomBookingIdData;
 import io.axoniq.demo.hotel.booking.command.web.api.RoomRequestData;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +41,7 @@ public class RoomCommandMultiTenantController {
 
     private final CommandGateway commandGateway;
 
-    public RoomCommandMultiTenantController(CommandGateway commandGateway, QueryGateway queryGateway) {
+    public RoomCommandMultiTenantController(CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
     }
 
