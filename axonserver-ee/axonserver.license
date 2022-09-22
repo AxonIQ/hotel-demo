@@ -1,0 +1,14 @@
+#AxonIQ License File generated on 2022-09-20
+#Tue Sep 20 08:26:45 UTC 2022
+license_key_id=dd722d00-dd7c-4c70-bf1a-2f5c78a3af6c
+signature=POSseYXhv/Op+DaXT7UYjQudjzhkM3adU/gPGWuSEUPXTspHoF788iL0poZoycIVBsm8CGxUqeWdZyAaWQnvEuveqQCl9YlgmK6ocYp6uPL3ltxfAO93xW8X9paUqMMj1Y6FFky8ITSPRPWNA1zpTFyoPLs3Dmy+/kx/DjVJBiTo8QaDt08IWhr7f8Zezp9n6HgZKU/UnojSwBBtp/NxxMGu11VjjqrBI6NBBj+J3LtJMNkA5P8za4cQ2Huu+HufROz+6N2Ia1obdkpG2eqaoRsWf6MLKzYBX6eU9nV/b5SFCOX9/ehw3O0lHT5WZokY3ZKZUaXTAWNYgTopRkpeunNv7p+pVHnSAV969zWZ6Y1YbgDkL1TAmnqWu1+1w3C48xoyFvlSSNcUkhWljOlwF2X0gmYX6/r02UDPD5Q0nQcqC01QcOFOeYny0VgWe6XfYovKMmlqDCW5m2y/W7dEJffpl4I93p0OFzh4LRxqrqriNTVKs95YNh5XPvm4e8u2/0ieeo9so8gCz+xTeDB6rZw81YCyLDYkS4GP1pVt/SOPtvZHPncKWOdv19790zc6azByyXAxnqi/GXGI6dB9kaKDmBVPeCMtSdF6Z0Cq9K+aGAHoFhwZZJmG4Bo1MAutAAA6J+Qw60yilehKt+SgibwQFxIn1LEkRZu4Ga4e/mg\=
+reference=Trial license for use by the participants to AxonIQCon 2022
+contexts=100
+expiry_date=2022-10-15
+contact=bert.laverman@axoniq.io
+edition=Enterprise
+issue_date=2022-09-20
+grace_date=2022-10-15
+product=AxonServer
+licensee=AxonIQCon 2022
+clusterNodes=3
