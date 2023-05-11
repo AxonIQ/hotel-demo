@@ -6,7 +6,7 @@ Event modeling adopts Event Storming sticky notes. The final piece was the UI/UX
 
 [Download specification (Demo.pdf)](Demo.pdf)
 
-The Miro board is [publicly available (view only)](https://miro.com/app/board/o9J_kuZkBh8=/) as well. 
+The Miro board is [publicly available (view only)](https://miro.com/app/board/o9J_kobh9rI=/?moveToWidget=3458764554106533277&cot=14) as part of our Event Modeling samples boards. 
 
 ## Prerequisites
 
