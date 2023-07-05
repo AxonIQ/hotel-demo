@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class SerialisationConfig {
 
-
     @Bean
     @Primary
     public Serializer jacksonSerializer(ObjectMapper objectMapper) {
