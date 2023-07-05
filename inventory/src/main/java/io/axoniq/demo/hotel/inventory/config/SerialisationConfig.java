@@ -1,4 +1,4 @@
-package io.axoniq.demo.hotel.booking.serialisation.config;
+package io.axoniq.demo.hotel.inventory.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.axonframework.serialization.Serializer;
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class SerialisationConfig {
-
 
     @Bean
     @Primary

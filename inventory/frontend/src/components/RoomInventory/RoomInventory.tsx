@@ -13,7 +13,7 @@ const RoomsTable = ({rooms} : {rooms: RoomOverviewData[]}) => {
     }, [])
 
     // noinspection TypeScriptValidateTypes: Specified by MUI demo
-    return <Table component={Paper}>
+    return <Table>
         <TableHead>
             <TableRow>
                 <TableCell>Room Number</TableCell>
