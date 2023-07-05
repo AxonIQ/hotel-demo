@@ -19,6 +19,8 @@ import io.axoniq.demo.hotel.booking.command.api.AddRoomCommand;
 import io.axoniq.demo.hotel.booking.command.api.RoomAddedEvent;
 import io.axoniq.demo.hotel.inventory.command.api.MarkRoomAsAddedToBookingSystemCommand;
 import io.axoniq.demo.hotel.inventory.command.api.RoomAddedToInventoryEvent;
+import lombok.Getter;
+import lombok.Setter;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.modelling.saga.EndSaga;
@@ -37,6 +39,8 @@ public class BookingInventorySaga {
 
     @Autowired
     private transient CommandGateway commandGateway;
+    @Getter
+    @Setter
     private UUID inventoryRoomId;
 
     @StartSaga
@@ -49,6 +53,6 @@ public class BookingInventorySaga {
     @EndSaga
     @SagaEventHandler(associationProperty = "roomNumber")
     public void on(RoomAddedEvent event) {
-        commandGateway.send(new MarkRoomAsAddedToBookingSystemCommand(this.inventoryRoomId));
+        commandGateway.send(new MarkRoomAsAddedToBookingSystemCommand(this.inventoryRoomId)).join();
     }
 }

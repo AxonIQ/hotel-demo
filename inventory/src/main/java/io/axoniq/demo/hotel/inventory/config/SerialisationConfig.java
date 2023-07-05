@@ -1,4 +1,4 @@
-package io.axoniq.demo.hotel.booking.serialisation.config;
+package io.axoniq.demo.hotel.inventory.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.axonframework.serialization.Serializer;
